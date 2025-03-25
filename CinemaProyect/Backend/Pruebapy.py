@@ -1,0 +1,1 @@
+print("Aquí va el proyecto Django.")
