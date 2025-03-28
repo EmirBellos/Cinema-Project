@@ -1,4 +1,4 @@
-# Cinema-Proyect
+# Cinema-Project
 
 
 
