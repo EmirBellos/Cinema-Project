@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from "react";
 import Nav from "./Nav";
 import { NavLink } from "react-router-dom";
+
+//Iconos utilizados en el Navegador
 import { MdOutlineLocalMovies } from "react-icons/md";
+import { FaBars } from "react-icons/fa";
+import { IoMdClose } from "react-icons/io";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false); // Hook para el scrolleo del navegador
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -34,9 +39,71 @@ export default function Header() {
 
         {/**Área de Navegación */}
         <div className="flex items-center">
-          <Nav />
+          {/**En pantallas lg o mayores muestra el nav predeterminado */}
+          <div className="hidden lg:block mr-4">
+            <Nav />
+          </div>
+          {/**En pantallas menores a lg se muestra el ícono menú sandwich */}
+          <div className="lg:hidden">
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="text-white text-2xl focus:outline-none"
+            >
+              <FaBars />
+            </button>
+          </div>
         </div>
       </div>
+
+      {/**Menú desplegable para celulares */}
+      {isMenuOpen && (
+        <div
+          className={`fixed top-0 right-0 z-50 h-full w-64 bg-primary-purple transform transition-transform duration-300 ease-in-out ${
+            isMenuOpen ? "translate-x-0" : "translate-x-full"
+          }`}
+        >
+          {/**Contenedor para el botón cerrar */}
+          <div className="flex justify-end p-4">
+            <button
+              onClick={() => setIsMenuOpen(false)}
+              className="text-white hover:text-gray-300 transition-colors"
+            >
+              <IoMdClose className="h-6 w-6"/>
+            </button>
+          </div>
+
+          {/**Lista de navegación */}
+          <ul className="flex flex-col space-y-4 p-4 text-white text-lg">
+            <li>
+              <NavLink
+                to="/"
+                onClick={() => setIsMenuOpen(false)}
+                className="block hover:text-gray-300 transition-colors"
+              >
+                Home
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/Cartelera"
+                onClick={() => setIsMenuOpen(false)}
+                className="block hover:text-gray-300 transition-colors"
+              >
+                Cartelera
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/EditarReserva"
+                onClick={() => setIsMenuOpen(false)}
+                className="block hover:text-gray-300 transition-colors"
+              >
+                Editar Reserva
+              </NavLink>
+            </li>
+          </ul>
+        </div>
+      )}
     </header>
   );
 }

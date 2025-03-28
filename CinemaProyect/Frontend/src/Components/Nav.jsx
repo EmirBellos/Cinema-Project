@@ -27,14 +27,11 @@ export default function Nav() {
         </li>
         <li>
           <Link to="/EditarReserva">
-            <button className="px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg">
+            <button className="px-6 py-3 bg-gray-600 text-white rounded-full hover:bg-gray-700 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg">
               Editar Reserva
             </button>
           </Link>
         </li>
-        {/** <li>
-                <NavLink></NavLink>
-            </li> */}
       </ul>
     </>
   );
