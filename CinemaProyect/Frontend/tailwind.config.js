@@ -9,6 +9,9 @@ export default {
         "light-blue": "#C1DBE3",
         "button-green": "#558564",
         "cinema-yellow": "#D5A021",
+
+        "azulproof": "#2A324B",
+        "grayproof": "#E1E5EE",
       },
     },
   },
