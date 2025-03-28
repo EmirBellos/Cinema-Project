@@ -7,11 +7,11 @@ import Footer from './Footer';
 export default function Layout({children}) {
     const location = useLocation();//Hook de router-dom (utilizar para forzar animaciones y ubicaciones de la vista.)
   return (
-    <>
+    <div className="min-h-screen flex flex-col">
       {/**insertar componentes */}
       <Header />
-      <main>{children}</main>
+      <main className='flex-grow'>{children}</main>
       <Footer/>
-    </>
+    </div>
   )
 }
