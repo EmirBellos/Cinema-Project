@@ -4,9 +4,9 @@ import { MdOutlineLocalMovies } from "react-icons/md";
 
 export default function Home() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-secondary-purple">
+    <div className="min-h-screen flex items-center justify-center bg-gray-background">
       {/**Contenedor de todo el menú */}
-      <div className="w-[90%] sm:w-[85%] md:max-w-md mx-auto p-6 space-y-8 bg-white rounded-lg">
+      <div className="w-[90%] sm:w-[85%] md:max-w-md mx-auto p-6 space-y-8 bg-white rounded-lg border-2 border-black">
         {/**Contenido de todo el menú */}
         {/* Logo */}
         <div className="flex justify-center">

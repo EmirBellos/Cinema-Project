@@ -9,6 +9,11 @@ export default {
         "light-blue": "#C1DBE3",
         "button-green": "#558564",
         "cinema-yellow": "#D5A021",
+
+        //Nueva paleta de colores
+        "blue-header": "#1D2D44",
+        "gray-background": "#FCFAF9",
+        "second-blue": "#3E5C76",
       },
     },
   },
