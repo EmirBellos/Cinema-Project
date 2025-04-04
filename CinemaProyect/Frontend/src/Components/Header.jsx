@@ -21,7 +21,7 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 bg-primary-purple transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 bg-blue-header transition-all duration-300 ${
         scrolled ? "py-2 shadow-md" : "py-4"
       }`}
     >
@@ -58,7 +58,7 @@ export default function Header() {
       {/**Menú desplegable para celulares */}
       {isMenuOpen && (
         <div
-          className={`fixed top-0 right-0 z-50 h-full w-64 bg-primary-purple transform transition-transform duration-300 ease-in-out ${
+          className={`fixed top-0 right-0 z-50 h-full w-64 bg-blue-header transform transition-transform duration-300 ease-in-out ${
             isMenuOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
