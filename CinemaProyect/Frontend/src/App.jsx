@@ -1,11 +1,12 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+// Importar todas las rutas
 import Layout from "./Components/Layout";
 import Home from "./Pages/Home";
 import Cartelera from "./Pages/Cartelera";
 import EditarReserva from "./Pages/EditarReserva";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import DatosReserva from "./Pages/DatosReserva";
 
 function App() {
-
   return (
     <Router>
       <Routes>
@@ -30,6 +31,14 @@ function App() {
           element={
             <Layout>
               <EditarReserva />
+            </Layout>
+          }
+        ></Route>
+        <Route
+          path="/DatosReserva"
+          element={
+            <Layout>
+              <DatosReserva />
             </Layout>
           }
         ></Route>
