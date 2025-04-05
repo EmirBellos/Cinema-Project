@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import KarateKid from "../assets/KarateKid.png";
+import BannerCartelera from '../Components/BannerCartelera';
 
 // Array de películas provicional
 const mock_Movies = [
@@ -51,15 +52,7 @@ export default function Cartelera() {
   return (
     <>
       {/** Banner con imagen de la película más reciente o mejor rankeada */}
-      <div className="w-full">
-        <div className="relative w-full h-[250px] sm:h-[300px] md:h-[400px] lg:h-[500px]">
-          <img
-            src={KarateKid}
-            alt="Banner_película"
-            className="absolute inset-0 w-full h-full object-cover"
-          />
-        </div>
-      </div>
+      <BannerCartelera />
 
       {/* Ajustado pt-28/32 para compensar el header */}
       <div className="min-h-screen pt-14 lg:pt-16 px-2 sm:px-6 lg:px-8 pb-10 bg-gray-background">
