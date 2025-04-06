@@ -1,15 +1,24 @@
-import React from "react";
+import React, { useContext } from "react";
 import KarateKid from "../assets/KarateKid.png";
 import { Link } from "react-router-dom";
+import { ListMoviesContext } from "../Context/ListMoviesContext";
 
 export default function BannerCartelera() {
+  const { getMovieById } = useContext(ListMoviesContext);
+  const featuredMovie = getMovieById(2);
+
+  // Manejo de estados de carga y error
+  if (!featuredMovie) {
+    return <div>Cargando...</div>;
+  }
+
   return (
     <div className="relative w-full pt-16 sm:pt-20">
       {/* Contenedor principal con aspect ratio */}
       <div className="relative aspect-[4/3] sm:aspect-[16/9] md:aspect-[2/1] lg:aspect-[2.5/1]">
         <img
-          src={KarateKid}
-          alt="Banner_película"
+          src={featuredMovie.imageUrl}
+          alt={featuredMovie.title}
           className="absolute inset-0 w-full h-full object-cover"
         />
 
@@ -28,12 +37,12 @@ export default function BannerCartelera() {
 
               {/** Titulo de la Película */}
               <h3 className="text-2x1 sm:text-3xl md:text-4xl lg:text-5xl text-white font-bold tracking-tight">
-                Karate Kid
+                {featuredMovie.title}
               </h3>
 
               {/** Año, clasificación y duración */}
               <div className="flex items-center gap-2 sm:gap-4 text-sm sm:text-base text-white/90">
-                <span>1994</span>
+                <span>{featuredMovie.release_date}</span>
                 <span>|</span>
                 <span>PG</span>
                 <span>|</span>
@@ -42,8 +51,7 @@ export default function BannerCartelera() {
 
               {/** Sinopsís */}
               <p className="text-white/80 text-xs sm:text-sm md:text-base max-w-prose line-clamp-2 sm:line-clamp-none">
-                Daniel-san pelea contra la desigualdad social mientras intenta
-                aprender karate con un viejo asiatico.
+                {featuredMovie.overview}
               </p>
 
               <div className="flex gap-2 sm:gap-4 pt-2 sm:pt-4">
