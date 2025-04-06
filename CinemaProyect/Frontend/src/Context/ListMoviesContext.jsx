@@ -5,12 +5,24 @@ export const ListMoviesContext = createContext();
 
 export function ListMoviesContextProvider(props) {
   const [moviesList, setMoviesList] = useState([]);
-  useEffect(() => setMoviesList(data), []);
+  const [loading, setLoading] = useState(true);
 
-  //Posibilidad de crear una función para añadir nuevas películas
+  const getMovieById = (id) => {
+    return moviesList.find((movie) => movie.id === id) || null;
+  };
+
+  useEffect(() => {
+    try {
+      setMoviesList(data);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error loading movies:", error);
+      setLoading(false);
+    }
+  }, []);
 
   return (
-    <ListMoviesContext.Provider value={{ moviesList }}>
+    <ListMoviesContext.Provider value={{ moviesList, getMovieById, loading }}>
       {props.children}
     </ListMoviesContext.Provider>
   );
