@@ -14,7 +14,7 @@ export const mock_Movies = [
       imageUrl: "https://m.media-amazon.com/images/M/MV5BYWU3YzU0NTItMGVlYi00YTFmLWE5MmQtNjg4ODQ3ZWYyNjRkXkEyXkFqcGc@._V1_SX300.jpg",
       release_date: "2024-01-01",
       rating: 9.5,
-      overview: "Descripción de la película 2",
+      overview: "The meteoric rise, dramatic fall, and remarkable resurgence of British pop superstar Robbie Williams.",
     },
     {
       id: 3,
