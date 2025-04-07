@@ -1,26 +1,41 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import KarateKid from "../assets/KarateKid.png";
 import { Link } from "react-router-dom";
 import { ListMoviesContext } from "../Context/ListMoviesContext";
 
 export default function BannerCartelera() {
-  const { getMovieById } = useContext(ListMoviesContext);
-  const featuredMovie = getMovieById(2);
+  const { getMovieById, loading, moviesList } = useContext(ListMoviesContext);
+  const [bannerMovie, setBannerMovie] = useState(null);
+  //const featuredMovie = getMovieById(2);
 
-  // Manejo de estados de carga y error
-  if (!featuredMovie) {
+  // Obtiene una película de manera aleatoria para el banner
+  useEffect(() => {
+    if (moviesList.length > 0 && !bannerMovie) {
+      const randomIndex = Math.floor(Math.random() * moviesList.length);
+      setBannerMovie(moviesList[randomIndex]);
+    }
+  }, [moviesList, bannerMovie]);
+
+  if (!bannerMovie) {
     return <div>Cargando...</div>;
   }
+  // Manejo de estados de carga y error
+  if (loading) {
+    return <div>Cargando...</div>;
+  }
+  /*if (!featuredMovie) {
+    return <div>Película no encontrada...</div>;
+  }*/
 
   return (
     <div className="relative w-full pt-16 sm:pt-20">
       {/* Contenedor principal con aspect ratio */}
       <div className="relative aspect-[4/3] sm:aspect-[16/9] md:aspect-[2/1] lg:aspect-[2.5/1]">
         <img
-          src={featuredMovie.imageUrl}
-          alt={featuredMovie.title}
-          className="absolute inset-0 w-full h-full object-cover"
-        />
+          src={bannerMovie.secondaryImage}
+          alt={bannerMovie.title}
+          className="absolute inset-0 w-full h-full  object-cover"
+        />{/**Añadir nuevas imagenes para el banner. */}
 
         {/** Overlay con gradientes para que la info se vizualice correctamente */}
         <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent">
@@ -37,21 +52,21 @@ export default function BannerCartelera() {
 
               {/** Titulo de la Película */}
               <h3 className="text-2x1 sm:text-3xl md:text-4xl lg:text-5xl text-white font-bold tracking-tight">
-                {featuredMovie.title}
+                {bannerMovie.title}
               </h3>
 
               {/** Año, clasificación y duración */}
               <div className="flex items-center gap-2 sm:gap-4 text-sm sm:text-base text-white/90">
-                <span>{featuredMovie.release_date}</span>
+                <span>{bannerMovie.release_date}</span>
                 <span>|</span>
-                <span>PG</span>
+                <span>{bannerMovie.category}</span>
                 <span>|</span>
-                <span>126 min</span>
+                <span>{bannerMovie.runtime}</span>
               </div>
 
               {/** Sinopsís */}
               <p className="text-white/80 text-xs sm:text-sm md:text-base max-w-prose line-clamp-2 sm:line-clamp-none">
-                {featuredMovie.overview}
+                {bannerMovie.overview}
               </p>
 
               <div className="flex gap-2 sm:gap-4 pt-2 sm:pt-4">
@@ -61,7 +76,7 @@ export default function BannerCartelera() {
                   </button>
                 </Link>
                 <a
-                  href="https://www.youtube.com/watch?v=r_8Rw16uscg&pp=ygUUa2FyYXRlIGtpZCAxIHRyYWlsZXPSBwkJfgkBhyohjO8%3D"
+                  href={bannerMovie.trailerLink}
                   target="_blank"
                   rel="noopener noreferrer"
                 >

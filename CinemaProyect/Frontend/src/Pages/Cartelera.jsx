@@ -3,17 +3,21 @@ import { Link } from "react-router-dom";
 import { ListMoviesContext } from "../Context/ListMoviesContext";
 import BannerCartelera from "../Components/BannerCartelera";
 import SearchBar from "../Components/SearchBar";
+
+// Icons
 import { FaTheaterMasks } from "react-icons/fa";
+import { HiTicket } from "react-icons/hi2";
 
 export default function Cartelera() {
   const { moviesList, searchTerm, searchResults } =
     useContext(ListMoviesContext);
 
+  // Determina la lista de películas a mostrar: resultados de búsqueda o catálogo completo
   const moviesToDisplay = searchTerm ? searchResults : moviesList;
 
   return (
     <>
-      {/** Banner con imagen de la película más reciente o mejor rankeada */}
+      {/** Banner con imagen de la película destacada aleatoria */}
       <BannerCartelera />
 
       {/* Ajustado pt-28/32 para compensar el header */}
@@ -50,13 +54,11 @@ export default function Cartelera() {
                         {movie.rating}
                       </span>
                     </div>
-                    <p className="text-xs sm:text-sm text-gray-600">
-                      {movie.release_date}
-                    </p>
                   </div>
                   <Link to="/DatosReserva" className="mt-2 sm:mt-4">
-                    <button className="w-full px-2 sm:px-4 py-1 sm:py-2 bg-green-800 text-white text-sm sm:text-base rounded-full hover:bg-button-green transition-colors duration-300">
-                      Info
+                    <button className="w-full flex justify-center items-center px-2 sm:px-4 py-1 sm:py-2 bg-green-800 text-white text-sm sm:text-base rounded-full hover:bg-button-green transition-colors duration-300">
+                      <HiTicket className="mr-2" />
+                      Horarios
                     </button>
                   </Link>
                 </div>

@@ -13,11 +13,14 @@ export function ListMoviesContextProvider(props) {
     return moviesList.find((movie) => movie.id === id) || null;
   };
 
-  // Función para buscar películas
+  // Función que maneja la búsqueda de películas en tiempo real
+  // Recibe el término de búsqueda como parámetro y actualiza los estados
+  // searchTerm y searchResults. Si el término está vacío, limpia los resultados
   const searchMovies = (term) => {
     setSearchTerm(term);
     if (term.trim() === " ") {
-      setSearchTerm([]);
+      setSearchTerm("");
+      setSearchResults([]);
       return;
     }
     // Filtros de búsqueda
@@ -29,7 +32,15 @@ export function ListMoviesContextProvider(props) {
     setSearchResults(filtered);
   };
 
-  useEffect(() => setMoviesList(data), []);
+  useEffect(() => {
+    try {
+      setMoviesList(data);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error loading movies:", error);
+      setLoading(false);
+    }
+  }, []);
 
   return (
     <ListMoviesContext.Provider
