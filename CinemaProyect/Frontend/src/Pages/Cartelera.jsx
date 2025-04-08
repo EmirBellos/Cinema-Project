@@ -1,5 +1,5 @@
-import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { ListMoviesContext } from "../Context/ListMoviesContext";
 import BannerCartelera from "../Components/BannerCartelera";
 import SearchBar from "../Components/SearchBar";
@@ -9,11 +9,25 @@ import { FaTheaterMasks } from "react-icons/fa";
 import { HiTicket } from "react-icons/hi2";
 
 export default function Cartelera() {
-  const { moviesList, searchTerm, searchResults } =
-    useContext(ListMoviesContext);
+  const {
+    moviesList,
+    searchTerm,
+    searchResults,
+    handleMovieSelection,
+    clearSearch,
+  } = useContext(ListMoviesContext);
 
   // Determina la lista de películas a mostrar: resultados de búsqueda o catálogo completo
   const moviesToDisplay = searchTerm ? searchResults : moviesList;
+
+  const navigate = useNavigate();
+
+  // Limpia la búsqueda cuando el componente se desmonta
+  useEffect(() => {
+    return () => {
+      clearSearch();
+    };
+  }, []);
 
   return (
     <>
@@ -55,12 +69,17 @@ export default function Cartelera() {
                       </span>
                     </div>
                   </div>
-                  <Link to="/DatosReserva" className="mt-2 sm:mt-4">
-                    <button className="w-full flex justify-center items-center px-2 sm:px-4 py-1 sm:py-2 bg-green-800 text-white text-sm sm:text-base rounded-full hover:bg-button-green transition-colors duration-300">
-                      <HiTicket className="mr-2" />
-                      Horarios
-                    </button>
-                  </Link>
+
+                  <button
+                    className="w-full flex justify-center items-center mt-2 sm:mt-4 px-2 sm:px-4 py-1 sm:py-2 bg-green-800 text-white text-sm sm:text-base rounded-full hover:bg-button-green transition-colors duration-300"
+                    onClick={() => {
+                      handleMovieSelection(movie.id),
+                        navigate("/SeleccionHorarios");
+                    }}
+                  >
+                    <HiTicket className="mr-2" />
+                    Horarios
+                  </button>
                 </div>
               </div>
             ))}
@@ -69,7 +88,7 @@ export default function Cartelera() {
           {searchTerm && searchResults.length === 0 && (
             <div className="flex-col flex items-center">
               <div className="text-center pt-8 pb-4">
-                <p className="text-second-blue lg:text-xl md:text-sm">
+                <p className="text-second-blue lg:text-xl md:text-sm capitalize">
                   La película que buscas no se encuentra disponible.
                 </p>
               </div>

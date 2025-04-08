@@ -8,7 +8,13 @@ export function ListMoviesContextProvider(props) {
   const [loading, setLoading] = useState(true);
   const [searchResults, setSearchResults] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedMovie, setSelectedMovie] = useState(null);
 
+  // Función para limpiar búsqueda (Importante: Definirla anted de todas las funciones antes del return)
+  const clearSearch = () => {
+    setSearchTerm("");
+    setSearchResults([]);
+  };
   const getMovieById = (id) => {
     return moviesList.find((movie) => movie.id === id) || null;
   };
@@ -23,6 +29,8 @@ export function ListMoviesContextProvider(props) {
       setSearchResults([]);
       return;
     }
+
+
     // Filtros de búsqueda
     const filtered = moviesList.filter(
       (movie) =>
@@ -32,8 +40,23 @@ export function ListMoviesContextProvider(props) {
     setSearchResults(filtered);
   };
 
+  // Función que actualiza el estado global con la película seleccionada
+  // Busca la película por ID en la lista y la guarda en el contexto
+  const handleMovieSelection = (movieId) => {
+    console.log("Buscando película con ID:", movieId);
+    const movie = moviesList.find((movie) => movie.id === movieId);
+    console.log("Película encontrada:", movie);
+    setSelectedMovie(movie);
+  };
+
+  // Función para limpiar la selección de película
+  const cleanSelection = () => {
+    setSelectedMovie(null);
+  };
+
   useEffect(() => {
     try {
+      console.log("Cargando películas...");
       setMoviesList(data);
       setLoading(false);
     } catch (error) {
@@ -42,15 +65,23 @@ export function ListMoviesContextProvider(props) {
     }
   }, []);
 
+  useEffect(() => {
+    console.log("Selected Movie actualizada:", selectedMovie);
+  }, [selectedMovie]);
+
   return (
     <ListMoviesContext.Provider
       value={{
         moviesList,
         loading,
         getMovieById,
+        clearSearch,
         searchMovies,
         searchResults,
         searchTerm,
+        selectedMovie,
+        handleMovieSelection,
+        cleanSelection,
       }}
     >
       {props.children}

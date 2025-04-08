@@ -13,6 +13,9 @@ export const mock_Movies = [
       overview: "As Harvard student Mark Zuckerberg creates the social networking site that would become known as Facebook, he is sued by the twins who claimed he stole their idea and by the co-founder who was later squeezed out of the business.",
       secondaryImage: "https://m.media-amazon.com/images/M/MV5BMTY3ODQ1OTctYmMxOC00OGIzLWJhZjctN2ViMTgzMGJiMGU4XkEyXkFqcGc@._V1_QL75_UX1212_.jpg",
       trailerLink: "https://www.youtube.com/watch?v=lB95KLmpLR4&pp=ygUadGhlIHNvY2lhbCBuZXR3b3JrIHRyYWlsZXI%3D",
+      director: "David Fincher",
+      actors: "Jesse Eisenberg, Andrew Garfield, Justin Timberlake",
+      awards: "https://www.imdb.com/es/title/tt1285016/awards/?ref_=tt_awd",
     },
     {
       id: 2,
@@ -26,6 +29,9 @@ export const mock_Movies = [
       overview: "The meteoric rise, dramatic fall, and remarkable resurgence of British pop superstar Robbie Williams.",
       secondaryImage: "https://m.media-amazon.com/images/M/MV5BMWZlZmRkNWUtOTcwMC00MWYzLTk2NzUtYWYxZmUzNjg3ZGFlXkEyXkFqcGc@._V1_QL75_UX1230_.jpg",
       trailerLink: "https://www.youtube.com/watch?v=KVeH5T4wxkE&pp=ygUSYmV0dGVyIG1hbiB0cmFpbGVy",
+      director: "Michael Gracey",
+      actors: "Simon Gleeson, Oliver Cole, Michael Gracey",
+      awards: "https://www.imdb.com/es/title/tt14260836/awards/?ref_=tt_awd",
     },
     {
       id: 3,
@@ -39,6 +45,9 @@ export const mock_Movies = [
       overview: "After a car wreck on Mulholland Drive renders a woman amnesiac, she and a Hollywood-hopeful search for clues and answers across Los Angeles in a twisting venture beyond dreams and reality.",
       secondaryImage: "https://m.media-amazon.com/images/M/MV5BZjk1OGMxNjctNDMyMi00NDE2LThlOGMtYjExYjg4OGJhODY1XkEyXkFqcGc@._V1_QL75_UX603_.jpg",
       trailerLink: "https://www.youtube.com/watch?v=3oa64ktrwKY&pp=ygUZbXVsaG9sbGFuZCBkcml2ZSB0cmFpbGVyIA%3D%3D",
+      director: "David Lynch",
+      actors: "Naomi Watts, Laura Harring, Justin Theroux",
+      awards: "https://www.imdb.com/es/title/tt0166924/awards/?ref_=tt_awd",
     },
     {
       id: 4,
@@ -52,6 +61,9 @@ export const mock_Movies = [
       overview: "A woman on the run from the mob is reluctantly accepted in a small Colorado community in exchange for labor, but when a search visits the town she finds out that their support has a price.",
       secondaryImage: "https://m.media-amazon.com/images/M/MV5BYWY3N2QzOTAtZTU0Ny00YzViLWI4NWQtOThhODg5ZjA4Y2IxXkEyXkFqcGc@._V1_QL75_UX1212_.jpg",
       trailerLink: "https://www.youtube.com/watch?v=dC3UFn5MeCg&pp=ygURZG9ndmlsbGUgdHJhaWxlciA%3D",
+      director: "Lars Von Trier",
+      actors: "Nicole Kidman, Paul Bettany, Lauren Bacall",
+      awards: "https://www.imdb.com/es/title/tt0276919/awards/?ref_=tt_awd",
     },
     {
       id: 5,
@@ -65,6 +77,9 @@ export const mock_Movies = [
       overview: "When a simple jewelry heist goes horribly wrong, the surviving criminals begin to suspect that one of them is a police informant.",
       secondaryImage: "https://m.media-amazon.com/images/M/MV5BMzNmOWQ0NGUtNjQyMi00MWIwLThiMTctYzZkYmJhMWQ2MzBjXkEyXkFqcGc@._V1_QL75_UX1212_.jpg",
       trailerLink: "https://www.youtube.com/watch?v=2KLZ4fSXtgI&pp=ygUXcmVzZXJ2b2lyIGRvZ3MgdHJhaWxlciA%3D",
+      director: "Quentin Tarantino",
+      actors: "Harvey Keitel, Tim Roth, Michael Madsen",
+      awards: "https://www.imdb.com/es/title/tt0105236/awards/?ref_=tt_awd",
     },
     {
       id: 6,
@@ -78,6 +93,9 @@ export const mock_Movies = [
       overview: "When Sebastian, a pianist, and Mia, an actress, follow their passion and achieve success in their respective fields, they find themselves torn between their love for each other and their careers.",
       secondaryImage: "https://m.media-amazon.com/images/M/MV5BZDgyYmYwNzAtMDg0Mi00N2M4LTgxODEtZDJmMTE5YTVhZjcyXkEyXkFqcGc@._V1_QL75_UX1230_.jpg",
       trailerLink: "https://www.youtube.com/watch?v=0pdqf4P9MB8&pp=ygUTbGEgbGEgbGFuZCB0cmFpbGVyIA%3D%3D",
+      director: "Damien Chazelle",
+      actors: "Ryan Gosling, Emma Stone, Rosemarie DeWitt",
+      awards: "https://www.imdb.com/es/title/tt3783958/awards/?ref_=tt_awd",
     },
     {
       id: 7,
@@ -91,6 +109,9 @@ export const mock_Movies = [
       overview: "A research team in Antarctica is hunted by a shape-shifting alien that assumes the appearance of its victims.",
       secondaryImage: "https://m.media-amazon.com/images/M/MV5BYWUxMGYyOTYtODA3MS00NTY2LTk1ZDQtZmMyYTZkZjg2Y2E4XkEyXkFqcGc@._V1_QL75_UX1212_.jpg",
       trailerLink: "https://www.youtube.com/watch?v=l8A_DMMJC_Q&pp=ygUSdGhlIHRoaW5nIHRyYWlsZXIg",
+      director: "John Carpenter",
+      actors: "Kurt Russell, Wilford Brimley, Keith David",
+      awards: "https://www.imdb.com/es/title/tt0084787/awards/?ref_=tt_awd",
     },
     {
       id: 8,
@@ -104,6 +125,9 @@ export const mock_Movies = [
       overview: "Following a series of unexplained crimes, a father is reunited with the son who has been missing for ten years.",
       secondaryImage: "https://m.media-amazon.com/images/M/MV5BNDM1MDRhMmEtMGQ2Mi00MzdkLWIyMWYtZjM3YjQ1YmNmM2RmXkEyXkFqcGc@._V1_QL75_UX1212_.jpg",
       trailerLink: "https://www.youtube.com/watch?v=KcAIvUJ-C-0&pp=ygUPdGl0YW5lIHRyYWlsZXIg",
+      director: "Julia Ducournau",
+      actors: "Vincent Lindon, Agathe Rousselle, Garance Marillier",
+      awards: "https://www.imdb.com/es/title/tt10944760/awards/?ref_=tt_awd",
     },
     {
       id: 9,
@@ -117,6 +141,9 @@ export const mock_Movies = [
       overview: "Thomas is deposited in a community of boys after his memory is erased, soon learning they're all trapped in a maze that will require him to join forces with fellow \"runners\" for a shot at escape.",
       secondaryImage: "https://m.media-amazon.com/images/M/MV5BMDc0YTMyZDEtZjIzMS00NDBmLWFjNWUtOTQ4ZWRmMTg1NmQ2XkEyXkFqcGc@._V1_QL75_UX1230_.jpg",
       trailerLink: "https://www.youtube.com/watch?v=AwwbhhjQ9Xk&pp=ygUYdGhlIG1hemUgcnVubmVyIHRyYWlsZXIg",
+      director: "Wes Ball",
+      actors: "Dylan O'Brien, Kaya Scodelario, Will Poulter",
+      awards: "https://www.imdb.com/es/title/tt1790864/awards/?ref_=tt_awd",
     },
     {
       id: 10,
@@ -130,6 +157,9 @@ export const mock_Movies = [
       overview: "A hapless young Viking who aspires to hunt dragons becomes the unlikely friend of a young dragon himself, and learns there may be more to the creatures than he assumed.",
       secondaryImage: "https://m.media-amazon.com/images/M/MV5BMjA4NjQxOTk3MF5BMl5BanBnXkFtZTcwMjMwNDAzMw@@._V1_QL75_UX1212_.jpg",
       trailerLink: "https://www.youtube.com/watch?v=oKiYuIsPxYk&pp=ygUjaG93IHRvIHRyYWluIHlvdXIgZHJhZ29uIDEgdHJhaWxlciA%3D",
+      director: "Dean DeBlois, Chris Sanders",
+      actors: "Jey Baruchel, Gerard Butler, Christopher Mintz-Plasse",
+      awards: "https://www.imdb.com/es/title/tt0892769/awards/?ref_=tt_awd",
     },
     {
       id: 11,
@@ -143,6 +173,9 @@ export const mock_Movies = [
       overview: "Po and his friends fight to stop a peacock villain from conquering China with a deadly new weapon, but first the Dragon Warrior must come to terms with his past.",
       secondaryImage: "https://m.media-amazon.com/images/M/MV5BZTcyMDM3OTgtZjI5OC00YTUxLWJiNTQtYmI5MTMyNTFkMzI0XkEyXkFqcGc@._V1_QL75_UX1212_.jpg",
       trailerLink: "https://www.youtube.com/watch?v=FQ63rqSRrEI&pp=ygUXa3VuZyBmdSBwYW5kYSAyIHRyYWlsZXI%3D",
+      director: "Jennifer Yuh Nelson",
+      actors: "Jack Black, Angelina Jolie, Jackie Chan",
+      awards: "https://www.imdb.com/es/title/tt1302011/awards/?ref_=tt_awd",
     },
     {
       id: 12,
@@ -156,6 +189,9 @@ export const mock_Movies = [
       overview: "After being dumped by the girl he believes to be his soulmate, hopeless romantic Tom Hansen reflects on their relationship to try and figure out where things went wrong and how he can win her back.",
       secondaryImage: "https://m.media-amazon.com/images/M/MV5BNjRhY2NhNjAtMWVlNS00ODQwLWJjMmYtODEyYTNmYjYwMzllXkEyXkFqcGc@._V1_QL75_UX1230_.jpg",
       trailerLink: "https://www.youtube.com/watch?v=PsD0NpFSADM&pp=ygUaNTAwIGRheXMgb2Ygc3VtbWVyIHRyYWlsZXI%3D",
+      director: "Marc Webb",
+      actors: "Zoowy Deschanel, Joseph Gordon-Lavitt, Geoffrey Arend",
+      awards: "https://www.imdb.com/es/title/tt1022603/awards/?ref_=tt_awd",
     },
     // ... más películas
   ];
