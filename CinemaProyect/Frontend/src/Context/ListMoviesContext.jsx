@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState, useCallback } from "react";
 import { mock_Movies as data } from "../Data/mock_Movies";
 
 export const ListMoviesContext = createContext();
@@ -18,6 +18,13 @@ export function ListMoviesContextProvider(props) {
     setSearchTerm("");
     setSearchResults([]);
   };
+  // Función para limpiar la selección de datos de Reserva (Ciudad, Fecha y Hora)
+  const clearSelection = () => {
+    setSelectedCity("");
+    setSelectedDate(null);
+    setSelectedTime(null);
+  };
+
   const getMovieById = (id) => {
     return moviesList.find((movie) => movie.id === id) || null;
   };
@@ -44,12 +51,12 @@ export function ListMoviesContextProvider(props) {
 
   // Función que actualiza el estado global con la película seleccionada
   // Busca la película por ID en la lista y la guarda en el contexto
-  const handleMovieSelection = (movieId) => {
+  const handleMovieSelection = useCallback((movieId) => {
     console.log("Buscando película con ID:", movieId);
     const movie = moviesList.find((movie) => movie.id === movieId);
     console.log("Película encontrada:", movie);
     setSelectedMovie(movie);
-  };
+  });
 
   // Función para limpiar la selección de película
   const cleanSelection = () => {
@@ -58,20 +65,20 @@ export function ListMoviesContextProvider(props) {
 
   // Funciones que actualizan el estado global de la reserva (Lugar, Fecha y Hora)
   // 1.- Función para manejar la ciudad seleccionada
-  const handleCityChange = (value) => {
+  const handleCityChange = useCallback((value) => {
     setSelectedCity(value);
     console.log("Ciudad Seleccionada:", value);
-  };
+  }, []);
   // 2.- Función para manejar la fecha seleccionada
-  const handleDateSelection = (date) => {
+  const handleDateSelection = useCallback((date) => {
     setSelectedDate(date);
     console.log("Fecha seleccionada:", selectedDate);
-  };
+  }, []);
   // 3.- Función para manejar la hora seleccionada
-  const handleTimeSelection = (time) => {
+  const handleTimeSelection = useCallback((time) => {
     setSelectedTime(time);
     console.log("Horario seleccionado:", selectedTime);
-  };
+  }, []);
 
   useEffect(() => {
     try {
@@ -84,10 +91,20 @@ export function ListMoviesContextProvider(props) {
     }
   }, []);
 
+  // Efecto para monitorear cambios en los estados
   useEffect(() => {
-    console.log("Selected Movie actualizada:", selectedMovie);
-    console.log("Selected City actualizada: ", selectedCity);
-  }, [selectedMovie]);
+    console.log({
+      movie: selectedMovie,
+      city: selectedCity,
+      date: selectedDate,
+      time: selectedTime,
+    });
+  }, [selectedMovie, selectedCity, selectedDate, selectedTime]);
+
+  // Función para validar que todos los datos necesarios estén seleccionados
+  const areSelectionsComplete = useCallback(() => {
+    return selectedMovie && selectedCity && selectedDate && selectedTime;
+  }, [selectedMovie, selectedCity, selectedDate, selectedTime]);
 
   return (
     <ListMoviesContext.Provider
@@ -96,6 +113,7 @@ export function ListMoviesContextProvider(props) {
         loading,
         getMovieById,
         clearSearch,
+        clearSelection,
         searchMovies,
         searchResults,
         searchTerm,
@@ -107,6 +125,7 @@ export function ListMoviesContextProvider(props) {
         selectedDate,
         handleTimeSelection,
         selectedTime,
+        areSelectionsComplete,
       }}
     >
       {props.children}

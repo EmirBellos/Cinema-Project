@@ -1,13 +1,17 @@
 import React, { useState, useContext } from "react";
 import { ListMoviesContext } from "../../Context/ListMoviesContext";
 import MovieInfoCard from './MovieInfoCard';
+import { useNavigate } from "react-router-dom";
 
 export default function SeccionFechaYHora() {
-  const { selectedMovie, handleDateSelection, selectedDate, handleTimeSelection, selectedTime } = useContext(ListMoviesContext);
+  const { selectedMovie, handleDateSelection, setSelectedDate, selectedDate, handleTimeSelection, setSelectedTime, selectedTime } = useContext(ListMoviesContext);
+  const [nextReservationSection, setNextReservationSection] = useState(false);
+  const navigate = useNavigate();
 
   if (!selectedMovie) {
     return <div>No hay película seleccionada</div>;
   }
+  
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -72,7 +76,9 @@ export default function SeccionFechaYHora() {
           {/* Botón de continuar (añadir lógica para continuar)*/}
           {selectedTime && (
             <div className="pt-6">
-              <button className="w-full sm:w-auto px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors">
+              <button className="w-full sm:w-auto px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+              onClick={() => navigate("/")}
+              >
                 Continuar a selección de asientos
               </button>
             </div>

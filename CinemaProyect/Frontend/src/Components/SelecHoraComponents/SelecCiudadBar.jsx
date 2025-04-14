@@ -1,32 +1,28 @@
-import React, { useState, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import { ListMoviesContext } from "../../Context/ListMoviesContext";
-
 
 const cities = ["Cancún", "Chetumal", "Playa del Carmen", "Mérida", "Campeche"];
 
 export default function SelecCiudadBar() {
-  const [selectedCity, setSelectedCity] = useState("");
-  const {handleCityChange} = useContext(ListMoviesContext);
+  //const [selectedCity, setSelectedCity] = useState("");
+  const { handleCityChange, selectedCity } = useContext(ListMoviesContext);
 
   /*const handleCityChange = (value) => {
     setSelectedCity(value);
     console.log("Ciudad Seleccionada:", value);
   };*/
 
-
   return (
     <>
       <div className="relative z-10">
         <select
-          onChange={(e) => handleCityChange(e.target.value)}
           value={selectedCity}
+          onChange={(e) => handleCityChange(e.target.value)}
           className="w-full px-4 py-2 rounded-lg border border-gray-300 
                           appearance-none bg-white focus:outline-none focus:ring-2 
                           focus:ring-red-500 cursor-pointer text-base sm:text-sm"
         >
-          <option value="" disabled>
-            Selecciona tu ciudad...
-          </option>
+          <option value="">Selecciona tu ciudad...</option>
           {cities.map((city) => (
             <option key={city} value={city}>
               {city}

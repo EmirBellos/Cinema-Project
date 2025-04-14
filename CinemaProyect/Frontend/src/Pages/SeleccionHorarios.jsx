@@ -1,10 +1,18 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect } from "react";
 import BannerHorarios from "../Components/SelecHoraComponents/BannerHorarios";
 import SelecCiudadBar from "../Components/SelecHoraComponents/SelecCiudadBar";
-import SeccionFechaYHora from '../Components/SelecHoraComponents/SeccionFechaYHora';
+import SeccionFechaYHora from "../Components/SelecHoraComponents/SeccionFechaYHora";
+import { ListMoviesContext } from "../Context/ListMoviesContext";
 
 export default function SeleccionHorarios() {
-  
+  const {clearSelection} = useContext(ListMoviesContext);
+  // Limpia la búsqueda cuando el componente se desmonta
+  useEffect(() => {
+    return () => {
+      clearSelection();
+    };
+  }, []);
+
   return (
     <>
       <BannerHorarios />
