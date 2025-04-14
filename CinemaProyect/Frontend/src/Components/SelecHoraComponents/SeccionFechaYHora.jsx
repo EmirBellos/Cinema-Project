@@ -3,9 +3,7 @@ import { ListMoviesContext } from "../../Context/ListMoviesContext";
 import MovieInfoCard from './MovieInfoCard';
 
 export default function SeccionFechaYHora() {
-  const { selectedMovie } = useContext(ListMoviesContext);
-  const [selectedDate, setSelectedDate] = useState(null);
-  const [selectedTime, setSelectedTime] = useState(null);
+  const { selectedMovie, handleDateSelection, selectedDate, handleTimeSelection, selectedTime } = useContext(ListMoviesContext);
 
   if (!selectedMovie) {
     return <div>No hay película seleccionada</div>;
@@ -25,7 +23,7 @@ export default function SeccionFechaYHora() {
               {selectedMovie.showTimes.map((dateOption) => (
                 <button
                   key={dateOption.id}
-                  onClick={() => setSelectedDate(dateOption)}
+                  onClick={() => handleDateSelection(dateOption)}
                   className={`px-4 py-2 rounded-lg flex-shrink-0 ${
                     selectedDate?.id === dateOption.id
                       ? "bg-red-600 text-white"
@@ -50,7 +48,7 @@ export default function SeccionFechaYHora() {
                 {selectedDate.times.map((timeSlot) => (
                   <button
                     key={timeSlot.id}
-                    onClick={() => setSelectedTime(timeSlot)}
+                    onClick={() => handleTimeSelection(timeSlot)}
                     className={`p-4 rounded-lg border shadow-md ${
                       selectedTime?.id === timeSlot.id
                         ? "border-red-600 bg-red-50"
@@ -83,7 +81,7 @@ export default function SeccionFechaYHora() {
 
         {/* Información de la película (derecha) */}
         <div className="lg:w-1/3">
-          <MovieInfoCard movie={selectedMovie} />
+          <MovieInfoCard />
         </div>
       </div>
     </div>

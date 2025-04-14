@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { ListMoviesContext } from "../../Context/ListMoviesContext";
+
 
 const cities = ["Cancún", "Chetumal", "Playa del Carmen", "Mérida", "Campeche"];
 
 export default function SelecCiudadBar() {
   const [selectedCity, setSelectedCity] = useState("");
+  const {handleCityChange} = useContext(ListMoviesContext);
 
-  const handleCityChange = (value) => {
+  /*const handleCityChange = (value) => {
     setSelectedCity(value);
     console.log("Ciudad Seleccionada:", value);
-  };
+  };*/
+
 
   return (
     <>

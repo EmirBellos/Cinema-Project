@@ -1,6 +1,32 @@
-import React from "react";
+import React, { useState, useContext } from "react";
+import "@ant-design/v5-patch-for-react-19"; // Importar versión compatible con React 19
+import { App, Button } from "antd";
+import { ListMoviesContext } from "../../Context/ListMoviesContext";
 
-export default function ({ movie }) {
+const BlockPayAlert = () => {
+  const { notification } = App.useApp();
+
+  const showNotification = () => {
+    notification.error({
+      message: "Acción No Permitida",
+      description: "Complete su reserva antes de continuar.",
+      placement: "bottomLeft",
+      style: {
+        borderRadius: "5px",
+        border: "2px solid #7a9787",
+      },
+    });
+  };
+  return (
+    <Button block type="default" shape="round" onClick={showNotification}>
+      PAGAR
+    </Button>
+  );
+};
+
+export default function () {
+  const { selectedMovie } = useContext(ListMoviesContext);
+
   return (
     <div className="bg-white rounded-lg shadow-xl">
       <div className="bg-blue-header text-white py-3 px-4 rounded-t-lg">
@@ -13,8 +39,8 @@ export default function ({ movie }) {
           {/* Imagen a la izquierda */}
           <div className="w-1/3">
             <img
-              src={movie.imageUrl}
-              alt={movie.title}
+              src={selectedMovie.imageUrl}
+              alt={selectedMovie.title}
               className="w-full h-auto rounded-lg"
             />
           </div>
@@ -24,11 +50,13 @@ export default function ({ movie }) {
           <div className="w-2/3 space-y-4">
             {/* Título y detalles básicos */}
             <div>
-              <h3 className="text-xl font-bold text-gray-900">{movie.title}</h3>
+              <h3 className="text-xl font-bold text-gray-900">
+                {selectedMovie.title}
+              </h3>
               <div className="flex items-center gap-2 text-sm text-gray-600 mt-1">
-                <span>{movie.runtime}</span>
+                <span>{selectedMovie.runtime}</span>
                 <span>|</span>
-                <span>{movie.category}</span>
+                <span>{selectedMovie.category}</span>
               </div>
             </div>
 
@@ -69,13 +97,15 @@ export default function ({ movie }) {
             </div>
           </div>
         </div>
-        
+
         {/** Botón para acceder a la página de pago (inhabilitado) */}
         <div className="pt-12 pb-2 inset-x-0 bottom-0">
-          <button className="bg-red-600 w-full flex justify-center items-center rounded-lg text-white/80 hover:bg-red-400 ">
-            PAGAR
-          </button>
+          <App>
+            <BlockPayAlert />
+          </App>
         </div>
+
+        {/** Pruebas de contenido MovieCard */}
       </div>
     </div>
   );

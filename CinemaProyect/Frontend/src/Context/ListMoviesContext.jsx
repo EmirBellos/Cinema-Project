@@ -9,6 +9,9 @@ export function ListMoviesContextProvider(props) {
   const [searchResults, setSearchResults] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedMovie, setSelectedMovie] = useState(null);
+  const [selectedCity, setSelectedCity] = useState("");
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedTime, setSelectedTime] = useState(null);
 
   // Función para limpiar búsqueda (Importante: Definirla anted de todas las funciones antes del return)
   const clearSearch = () => {
@@ -29,7 +32,6 @@ export function ListMoviesContextProvider(props) {
       setSearchResults([]);
       return;
     }
-
 
     // Filtros de búsqueda
     const filtered = moviesList.filter(
@@ -54,6 +56,23 @@ export function ListMoviesContextProvider(props) {
     setSelectedMovie(null);
   };
 
+  // Funciones que actualizan el estado global de la reserva (Lugar, Fecha y Hora)
+  // 1.- Función para manejar la ciudad seleccionada
+  const handleCityChange = (value) => {
+    setSelectedCity(value);
+    console.log("Ciudad Seleccionada:", value);
+  };
+  // 2.- Función para manejar la fecha seleccionada
+  const handleDateSelection = (date) => {
+    setSelectedDate(date);
+    console.log("Fecha seleccionada:", selectedDate);
+  };
+  // 3.- Función para manejar la hora seleccionada
+  const handleTimeSelection = (time) => {
+    setSelectedTime(time);
+    console.log("Horario seleccionado:", selectedTime);
+  };
+
   useEffect(() => {
     try {
       console.log("Cargando películas...");
@@ -67,6 +86,7 @@ export function ListMoviesContextProvider(props) {
 
   useEffect(() => {
     console.log("Selected Movie actualizada:", selectedMovie);
+    console.log("Selected City actualizada: ", selectedCity);
   }, [selectedMovie]);
 
   return (
@@ -82,6 +102,11 @@ export function ListMoviesContextProvider(props) {
         selectedMovie,
         handleMovieSelection,
         cleanSelection,
+        handleCityChange,
+        handleDateSelection,
+        selectedDate,
+        handleTimeSelection,
+        selectedTime,
       }}
     >
       {props.children}
