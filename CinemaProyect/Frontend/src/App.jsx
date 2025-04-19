@@ -1,10 +1,22 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import {useContext} from 'react';
+import {ListMoviesContext} from './Context/ListMoviesContext';
 // Importar todas las rutas
 import Layout from "./Components/Layout";
 import Home from "./Pages/Home";
 import Cartelera from "./Pages/Cartelera";
 import EditarReserva from "./Pages/EditarReserva";
-import DatosReserva from "./Pages/DatosReserva";
+import SeleccionHorarios from "./Pages/SeleccionHorarios";
+
+function ProtectedRoute({ children }) {
+  const { selectedMovie } = useContext(ListMoviesContext);
+
+  if (!selectedMovie) {
+    return <Navigate to="/Cartelera" replace />;
+  }
+
+  return children;
+}
 
 function App() {
   return (
@@ -35,11 +47,13 @@ function App() {
           }
         ></Route>
         <Route
-          path="/DatosReserva"
+          path="/SeleccionHorarios"
           element={
-            <Layout>
-              <DatosReserva />
-            </Layout>
+            <ProtectedRoute>
+              <Layout>
+                <SeleccionHorarios />
+              </Layout>
+            </ProtectedRoute>
           }
         ></Route>
       </Routes>
