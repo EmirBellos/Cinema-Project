@@ -5,25 +5,12 @@ import { PiTrophyLight } from "react-icons/pi";
 
 export default function BannerHorarios() {
   const { loading, selectedMovie } = useContext(ListMoviesContext);
-  //const featuredMovie = getMovieById(2);
   const navigate = useNavigate();
 
   // Manejo de estados de carga y error
   if (loading) {
     return <div>Cargando...</div>;
   }
-
-  /*// Effect que verifica si hay una película seleccionada
-  // Si no existe, redirige al usuario a la cartelera
-  useEffect(() => {
-    console.log("Componente SeleccionHorarios montado");
-    console.log("Selected Movie en SeleccionHorarios:", selectedMovie);
-
-    if (!selectedMovie) {
-      console.log("No hay película seleccionada, redirigiendo...");
-      navigate("/Cartelera");
-    }
-  }, [selectedMovie, navigate]);*/
 
   if (!selectedMovie) {
     navigate("/Cartelera");

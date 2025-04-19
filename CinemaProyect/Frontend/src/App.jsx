@@ -6,7 +6,6 @@ import Layout from "./Components/Layout";
 import Home from "./Pages/Home";
 import Cartelera from "./Pages/Cartelera";
 import EditarReserva from "./Pages/EditarReserva";
-import DatosReserva from "./Pages/SeleccionHorarios";
 import SeleccionHorarios from "./Pages/SeleccionHorarios";
 
 function ProtectedRoute({ children }) {

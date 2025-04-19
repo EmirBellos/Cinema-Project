@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 
 export default function SeccionFechaYHora() {
   const { selectedMovie, handleDateSelection, setSelectedDate, selectedDate, handleTimeSelection, setSelectedTime, selectedTime } = useContext(ListMoviesContext);
-  const [nextReservationSection, setNextReservationSection] = useState(false);
   const navigate = useNavigate();
 
   if (!selectedMovie) {

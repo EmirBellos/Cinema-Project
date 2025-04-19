@@ -18,15 +18,15 @@ export function ListMoviesContextProvider(props) {
     setSearchTerm("");
     setSearchResults([]);
   };
+  // Función para limpiar la selección de película
+  const cleanSelection = () => {
+    setSelectedMovie(null);
+  };
   // Función para limpiar la selección de datos de Reserva (Ciudad, Fecha y Hora)
   const clearSelection = () => {
     setSelectedCity("");
     setSelectedDate(null);
     setSelectedTime(null);
-  };
-
-  const getMovieById = (id) => {
-    return moviesList.find((movie) => movie.id === id) || null;
   };
 
   // Función que maneja la búsqueda de películas en tiempo real
@@ -58,10 +58,6 @@ export function ListMoviesContextProvider(props) {
     setSelectedMovie(movie);
   });
 
-  // Función para limpiar la selección de película
-  const cleanSelection = () => {
-    setSelectedMovie(null);
-  };
 
   // Funciones que actualizan el estado global de la reserva (Lugar, Fecha y Hora)
   // 1.- Función para manejar la ciudad seleccionada
@@ -111,15 +107,14 @@ export function ListMoviesContextProvider(props) {
       value={{
         moviesList,
         loading,
-        getMovieById,
         clearSearch,
         clearSelection,
+        cleanSelection,
         searchMovies,
         searchResults,
         searchTerm,
         selectedMovie,
         handleMovieSelection,
-        cleanSelection,
         handleCityChange,
         handleDateSelection,
         selectedDate,
