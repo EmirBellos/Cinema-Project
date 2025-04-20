@@ -9,7 +9,7 @@ export function ListMoviesContextProvider(props) {
   const [searchResults, setSearchResults] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedMovie, setSelectedMovie] = useState(null);
-  const [selectedCity, setSelectedCity] = useState("");
+  const [selectedCity, setSelectedCity] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
   const [totalTickets, setTotalTickets] = useState(null);
@@ -25,7 +25,7 @@ export function ListMoviesContextProvider(props) {
   };
   // Función para limpiar la selección de datos de Reserva (Ciudad, Fecha y Hora)
   const clearSelection = () => {
-    setSelectedCity("");
+    setSelectedCity(null);
     setSelectedDate(null);
     setSelectedTime(null)
     setTotalTickets(null);

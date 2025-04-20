@@ -1,8 +1,9 @@
 import React, { useState, useContext } from "react";
 import { ListMoviesContext } from "../../Context/ListMoviesContext";
 import MovieInfoCard from "./MovieInfoCard";
-import { useNavigate } from "react-router-dom";
 import SelecCantidadBoletos from "./SelecCantidadBoletos";
+import "@ant-design/v5-patch-for-react-19"; // Importar versión compatible con React 19
+import { notification } from "antd";
 
 export default function SeccionFechaYHora() {
   const {
@@ -14,7 +15,27 @@ export default function SeccionFechaYHora() {
     selectedCity,
   } = useContext(ListMoviesContext);
   const [addSeats, setAddSeats] = useState(false);
-  const navigate = useNavigate();
+  
+  const showNotification = () => {
+    notification.warning({
+      message: "Sección Faltante",
+      description: "Seleccione su ciudad antes de continuar.",
+      placement: "topLeft",
+      style: {
+        borderRadius: "5px",
+        border: "2px solid #D5A021",
+      },
+    });
+  };
+
+  const handleReservation = () => {
+    if (!selectedCity) {
+      setAddSeats(false);
+      showNotification();
+    } else {
+      setAddSeats(true);
+    }
+  };
 
   if (!selectedMovie) {
     return <div>No hay película seleccionada</div>;
@@ -87,10 +108,7 @@ export default function SeccionFechaYHora() {
             <div className="pt-6">
               <button
                 className="w-full sm:w-auto px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
-                onClick={() => {
-                  
-                  setAddSeats(true);
-                }}
+                onClick={() => handleReservation()}
               >
                 Continuar a selección de asientos
               </button>
@@ -107,7 +125,7 @@ export default function SeccionFechaYHora() {
       {/** Modal para seleccionar cantidad de asientos */}
       {addSeats && (
         <div>
-          <SelecCantidadBoletos isOpen={addSeats} onOpenChange={setAddSeats}/>
+          <SelecCantidadBoletos isOpen={addSeats} onOpenChange={setAddSeats} />
         </div>
       )}
     </div>
