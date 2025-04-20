@@ -12,6 +12,7 @@ export function ListMoviesContextProvider(props) {
   const [selectedCity, setSelectedCity] = useState("");
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
+  const [totalTickets, setTotalTickets] = useState(null);
 
   // Función para limpiar búsqueda (Importante: Definirla anted de todas las funciones antes del return)
   const clearSearch = () => {
@@ -26,7 +27,8 @@ export function ListMoviesContextProvider(props) {
   const clearSelection = () => {
     setSelectedCity("");
     setSelectedDate(null);
-    setSelectedTime(null);
+    setSelectedTime(null)
+    setTotalTickets(null);
   };
 
   // Función que maneja la búsqueda de películas en tiempo real
@@ -75,6 +77,11 @@ export function ListMoviesContextProvider(props) {
     setSelectedTime(time);
     console.log("Horario seleccionado:", selectedTime);
   }, []);
+  // 4.- Función para manejar la seleccion de boletos
+  const handleTicketsSelection = useCallback((tickets) => {
+    setTotalTickets(tickets);
+    console.log("Total de Boletos seleccionados:", totalTickets);
+  }, []);
 
   useEffect(() => {
     try {
@@ -94,13 +101,14 @@ export function ListMoviesContextProvider(props) {
       city: selectedCity,
       date: selectedDate,
       time: selectedTime,
+      tickets: totalTickets,
     });
-  }, [selectedMovie, selectedCity, selectedDate, selectedTime]);
+  }, [selectedMovie, selectedCity, selectedDate, selectedTime, totalTickets]);
 
   // Función para validar que todos los datos necesarios estén seleccionados
   const areSelectionsComplete = useCallback(() => {
-    return selectedMovie && selectedCity && selectedDate && selectedTime;
-  }, [selectedMovie, selectedCity, selectedDate, selectedTime]);
+    return selectedMovie && selectedCity && selectedDate && selectedTime && totalTickets;
+  }, [selectedMovie, selectedCity, selectedDate, selectedTime, totalTickets]);
 
   return (
     <ListMoviesContext.Provider
@@ -115,12 +123,14 @@ export function ListMoviesContextProvider(props) {
         searchTerm,
         selectedMovie,
         handleMovieSelection,
+        selectedCity,
         handleCityChange,
         handleDateSelection,
         selectedDate,
         handleTimeSelection,
         selectedTime,
         areSelectionsComplete,
+        handleTicketsSelection,
       }}
     >
       {props.children}
