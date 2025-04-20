@@ -1,5 +1,5 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import {useContext} from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
+import {useContext, useEffect} from 'react';
 import {ListMoviesContext} from './Context/ListMoviesContext';
 // Importar todas las rutas
 import Layout from "./Components/Layout";
@@ -18,9 +18,22 @@ function ProtectedRoute({ children }) {
   return children;
 }
 
+// Función para scroll top con una animación suave en todas las páginas
+function ScrollTop() {
+  const {pathname} = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [pathname]);
+}
+
 function App() {
   return (
     <Router>
+      <ScrollTop />
       <Routes>
         <Route
           path="/"

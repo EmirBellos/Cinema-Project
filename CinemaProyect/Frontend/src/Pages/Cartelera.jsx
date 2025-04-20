@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ListMoviesContext } from "../Context/ListMoviesContext";
 import BannerCartelera from "../Components/BannerCartelera";
 import SearchBar from "../Components/SearchBar";

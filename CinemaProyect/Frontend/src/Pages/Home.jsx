@@ -1,8 +1,19 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { MdOutlineLocalMovies } from "react-icons/md";
+import { ListMoviesContext } from "../Context/ListMoviesContext";
 
 export default function Home() {
+  const { cleanSelection } = useContext(ListMoviesContext);
+  const navigate = useNavigate();
+  
+  // Limpia la selección de película 
+  useEffect(() => {
+    return () => {
+      cleanSelection();
+    };
+  });
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-background">
       {/**Contenedor de todo el menú */}
@@ -23,16 +34,19 @@ export default function Home() {
         </h2>
         {/**Div contenedor de botones */}
         <div className="flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4 justify-center">
-          <Link to="/Cartelera" className="inline-flex justify-center">
-            <button className="px-6 py-3 bg-green-800 text-white rounded-lg hover:bg-button-green transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg">
-              Ver Cartelera
-            </button>
-          </Link>
-          <Link to="/EditarReserva" className="inline-flex justify-center">
-            <button className="px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg">
-              Editar Reserva
-            </button>
-          </Link>
+          <button
+            className="px-6 py-3 bg-green-800 text-white rounded-lg hover:bg-button-green transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg"
+            onClick={() => navigate("/Cartelera")}
+          >
+            Ver Cartelera
+          </button>
+
+          <button
+            className="px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg"
+            onClick={() => navigate("/EditarReserva")}
+          >
+            Editar Reserva
+          </button>
         </div>
       </div>
     </div>
