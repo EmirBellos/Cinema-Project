@@ -15,7 +15,7 @@ import "@ant-design/v5-patch-for-react-19"; // Importar versión compatible con 
 import { notification } from "antd";
 
 export default function SelecCantidadBoletos() {
-  const { handleTicketsSelection } = useContext(ListMoviesContext);
+  const { handleTicketsSelection, cleanSelection } = useContext(ListMoviesContext);
   const [countAdultTickets, setCountAdultTickets] = useState(0);
   const [countKidTickets, setCountKidTickets] = useState(0);
   const [costAdultTickets, setCostAdultTickets] = useState(0);
@@ -57,6 +57,7 @@ export default function SelecCantidadBoletos() {
     console.log("Proceso cancelado... Redirigiendo a Cartelera");
     navigate("/Cartelera");
     setIsOpen(false);
+    cleanSelection();
   };
 
   return (

@@ -13,6 +13,8 @@ export function ListMoviesContextProvider(props) {
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
   const [totalTickets, setTotalTickets] = useState(null);
+  const [showChangeData, setShowChangeData] = useState(false);
+
 
   // Función para limpiar búsqueda (Importante: Definirla anted de todas las funciones antes del return)
   const clearSearch = () => {
@@ -58,7 +60,7 @@ export function ListMoviesContextProvider(props) {
     const movie = moviesList.find((movie) => movie.id === movieId);
     console.log("Película encontrada:", movie);
     setSelectedMovie(movie);
-  });
+  }, [moviesList]);
 
 
   // Funciones que actualizan el estado global de la reserva (Lugar, Fecha y Hora)
@@ -82,6 +84,10 @@ export function ListMoviesContextProvider(props) {
     setTotalTickets(tickets);
     console.log("Total de Boletos seleccionados:", totalTickets);
   }, []);
+
+  const handleChangeMovieInfoCard = (change) => {
+    setShowChangeData(change);
+  }
 
   useEffect(() => {
     try {
@@ -131,6 +137,9 @@ export function ListMoviesContextProvider(props) {
         selectedTime,
         areSelectionsComplete,
         handleTicketsSelection,
+        totalTickets,
+        handleChangeMovieInfoCard,
+        showChangeData,
       }}
     >
       {props.children}

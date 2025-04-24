@@ -6,7 +6,7 @@ import "@ant-design/v5-patch-for-react-19"; // Importar versión compatible con 
 import { notification } from "antd";
 import { useNavigate } from "react-router-dom";
 
-export default function SeccionFechaYHora({ showSeats }) {
+export default function SeccionFechaYHora() {
   const {
     selectedMovie,
     handleDateSelection,
@@ -14,6 +14,7 @@ export default function SeccionFechaYHora({ showSeats }) {
     handleTimeSelection,
     selectedTime,
     selectedCity,
+    handleChangeMovieInfoCard,
   } = useContext(ListMoviesContext);
   //const [showSeats, setShowSeats] = useState(false);
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ export default function SeccionFechaYHora({ showSeats }) {
       showNotification();
     } else {
       //navigate("/SeccionAsientos");
-      showSeats(true);
+      handleChangeMovieInfoCard(true);
     }
   };
 
