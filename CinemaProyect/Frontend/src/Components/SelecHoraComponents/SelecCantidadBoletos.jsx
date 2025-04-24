@@ -1,19 +1,29 @@
 import React, { useContext, useState } from "react";
-import { Button, Dialog, Heading, Input, Label, Modal, TextField, ModalOverlay,} from "react-aria-components";
+import {
+  Button,
+  Dialog,
+  Heading,
+  Input,
+  Label,
+  Modal,
+  TextField,
+  ModalOverlay,
+} from "react-aria-components";
 import { ListMoviesContext } from "../../Context/ListMoviesContext";
 import { useNavigate } from "react-router-dom";
 import "@ant-design/v5-patch-for-react-19"; // Importar versión compatible con React 19
 import { notification } from "antd";
 
-export default function SelecCantidadBoletos({ isOpen, onOpenChange }) {
+export default function SelecCantidadBoletos() {
   const { handleTicketsSelection } = useContext(ListMoviesContext);
   const [countAdultTickets, setCountAdultTickets] = useState(0);
   const [countKidTickets, setCountKidTickets] = useState(0);
   const [costAdultTickets, setCostAdultTickets] = useState(0);
   const [costKidTickets, setCostKidTickets] = useState(0);
-
+  const [isOpen, setIsOpen] = useState(true);
 
   const navigate = useNavigate();
+  const totalCostTickets = costAdultTickets + costKidTickets;
 
   const showNotification = () => {
     notification.error({
@@ -38,24 +48,24 @@ export default function SelecCantidadBoletos({ isOpen, onOpenChange }) {
       showNotification();
       return;
     } else {
-      navigate("/SeleccionAsientos");
+      setIsOpen(false);
       handleTicketsSelection(totalTickets);
     }
   };
 
-  const totalCostTickets = costAdultTickets + costKidTickets;
-  
-  
+  const handleCancelation = () => {
+    console.log("Proceso cancelado... Redirigiendo a Cartelera");
+    navigate("/Cartelera");
+    setIsOpen(false);
+  };
 
   return (
     <ModalOverlay
       isOpen={isOpen}
-      onOpenChange={onOpenChange}
       className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
     >
       <Modal
         isOpen={isOpen}
-        onOpenChange={onOpenChange}
         className="bg-white rounded-lg shadow-xl w-11/12 max-w-md mx-auto"
       >
         <Dialog className="p-6">
@@ -122,7 +132,7 @@ export default function SelecCantidadBoletos({ isOpen, onOpenChange }) {
             {/* Botones de acción */}
             <div className="flex justify-end space-x-3 mt-6">
               <Button
-                onClick={() => onOpenChange(false)}
+                onClick={() => handleCancelation()}
                 className="px-4 py-2 text-gray-600 bg-gray-100 rounded-md hover:bg-gray-200 transition-colors"
               >
                 Cancelar
@@ -130,9 +140,10 @@ export default function SelecCantidadBoletos({ isOpen, onOpenChange }) {
               <Button
                 className={`
                   px-4 py-2 rounded-md transition-colors
-                  ${(countAdultTickets + countKidTickets === 0)
-                    ? 'bg-gray-400 cursor-not-allowed opacity-50 text-gray-100'
-                    : 'bg-blue-header text-white hover:bg-blue-500 active:bg-blue-600'
+                  ${
+                    countAdultTickets + countKidTickets === 0
+                      ? "bg-gray-400 cursor-not-allowed opacity-50 text-gray-100"
+                      : "bg-blue-header text-white hover:bg-blue-500 active:bg-blue-600"
                   }
                 `}
                 isDisabled={countAdultTickets + countKidTickets === 0}

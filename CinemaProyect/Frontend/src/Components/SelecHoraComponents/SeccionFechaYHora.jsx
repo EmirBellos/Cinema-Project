@@ -4,8 +4,9 @@ import MovieInfoCard from "./MovieInfoCard";
 import SelecCantidadBoletos from "./SelecCantidadBoletos";
 import "@ant-design/v5-patch-for-react-19"; // Importar versión compatible con React 19
 import { notification } from "antd";
+import { useNavigate } from "react-router-dom";
 
-export default function SeccionFechaYHora() {
+export default function SeccionFechaYHora({ showSeats }) {
   const {
     selectedMovie,
     handleDateSelection,
@@ -14,8 +15,9 @@ export default function SeccionFechaYHora() {
     selectedTime,
     selectedCity,
   } = useContext(ListMoviesContext);
-  const [addSeats, setAddSeats] = useState(false);
-  
+  //const [showSeats, setShowSeats] = useState(false);
+  const navigate = useNavigate();
+
   const showNotification = () => {
     notification.warning({
       message: "Sección Faltante",
@@ -30,10 +32,10 @@ export default function SeccionFechaYHora() {
 
   const handleReservation = () => {
     if (!selectedCity) {
-      setAddSeats(false);
       showNotification();
     } else {
-      setAddSeats(true);
+      //navigate("/SeccionAsientos");
+      showSeats(true);
     }
   };
 
@@ -123,11 +125,11 @@ export default function SeccionFechaYHora() {
       </div>
 
       {/** Modal para seleccionar cantidad de asientos */}
-      {addSeats && (
-        <div>
-          <SelecCantidadBoletos isOpen={addSeats} onOpenChange={setAddSeats} />
-        </div>
-      )}
+      {/* {addSeats && (
+      <div>
+        <SelecCantidadBoletos isOpen={addSeats} onOpenChange={setAddSeats} />
+      </div>
+    )} */}
     </div>
   );
 }

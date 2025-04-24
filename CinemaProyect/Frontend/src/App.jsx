@@ -7,7 +7,7 @@ import Home from "./Pages/Home";
 import Cartelera from "./Pages/Cartelera";
 import EditarReserva from "./Pages/EditarReserva";
 import SeleccionHorarios from "./Pages/SeleccionHorarios";
-import SeleccionAsientos from './Pages/SeccionAsientos';
+import SeccionAsientos from './Pages/SeccionAsientos';
 
 function ProtectedRoute({ children }) {
   const { selectedMovie } = useContext(ListMoviesContext);
@@ -71,11 +71,11 @@ function App() {
           }
         ></Route>
         <Route
-          path="/SeleccionAsientos"
+          path="/SeccionAsientos"
           element={
             <ProtectedRoute>
               <Layout>
-                <SeleccionAsientos />
+                <SeccionAsientos />
               </Layout>
             </ProtectedRoute>
           }
