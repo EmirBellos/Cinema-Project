@@ -9,9 +9,12 @@ export function ListMoviesContextProvider(props) {
   const [searchResults, setSearchResults] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedMovie, setSelectedMovie] = useState(null);
-  const [selectedCity, setSelectedCity] = useState("");
+  const [selectedCity, setSelectedCity] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
+  const [totalTickets, setTotalTickets] = useState(null);
+  const [showChangeData, setShowChangeData] = useState(false);
+
 
   // Función para limpiar búsqueda (Importante: Definirla anted de todas las funciones antes del return)
   const clearSearch = () => {
@@ -24,9 +27,10 @@ export function ListMoviesContextProvider(props) {
   };
   // Función para limpiar la selección de datos de Reserva (Ciudad, Fecha y Hora)
   const clearSelection = () => {
-    setSelectedCity("");
+    setSelectedCity(null);
     setSelectedDate(null);
-    setSelectedTime(null);
+    setSelectedTime(null)
+    setTotalTickets(null);
   };
 
   // Función que maneja la búsqueda de películas en tiempo real
@@ -56,7 +60,7 @@ export function ListMoviesContextProvider(props) {
     const movie = moviesList.find((movie) => movie.id === movieId);
     console.log("Película encontrada:", movie);
     setSelectedMovie(movie);
-  });
+  }, [moviesList]);
 
 
   // Funciones que actualizan el estado global de la reserva (Lugar, Fecha y Hora)
@@ -75,6 +79,15 @@ export function ListMoviesContextProvider(props) {
     setSelectedTime(time);
     console.log("Horario seleccionado:", selectedTime);
   }, []);
+  // 4.- Función para manejar la seleccion de boletos
+  const handleTicketsSelection = useCallback((tickets) => {
+    setTotalTickets(tickets);
+    console.log("Total de Boletos seleccionados:", totalTickets);
+  }, []);
+
+  const handleChangeMovieInfoCard = (change) => {
+    setShowChangeData(change);
+  }
 
   useEffect(() => {
     try {
@@ -94,13 +107,14 @@ export function ListMoviesContextProvider(props) {
       city: selectedCity,
       date: selectedDate,
       time: selectedTime,
+      tickets: totalTickets,
     });
-  }, [selectedMovie, selectedCity, selectedDate, selectedTime]);
+  }, [selectedMovie, selectedCity, selectedDate, selectedTime, totalTickets]);
 
   // Función para validar que todos los datos necesarios estén seleccionados
   const areSelectionsComplete = useCallback(() => {
-    return selectedMovie && selectedCity && selectedDate && selectedTime;
-  }, [selectedMovie, selectedCity, selectedDate, selectedTime]);
+    return selectedMovie && selectedCity && selectedDate && selectedTime && totalTickets;
+  }, [selectedMovie, selectedCity, selectedDate, selectedTime, totalTickets]);
 
   return (
     <ListMoviesContext.Provider
@@ -115,12 +129,17 @@ export function ListMoviesContextProvider(props) {
         searchTerm,
         selectedMovie,
         handleMovieSelection,
+        selectedCity,
         handleCityChange,
         handleDateSelection,
         selectedDate,
         handleTimeSelection,
         selectedTime,
         areSelectionsComplete,
+        handleTicketsSelection,
+        totalTickets,
+        handleChangeMovieInfoCard,
+        showChangeData,
       }}
     >
       {props.children}

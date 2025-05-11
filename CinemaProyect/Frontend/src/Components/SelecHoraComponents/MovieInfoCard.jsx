@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import "@ant-design/v5-patch-for-react-19"; // Importar versión compatible con React 19
 import { App, Button } from "antd";
 import { ListMoviesContext } from "../../Context/ListMoviesContext";
+import { useNavigate } from "react-router-dom";
 
 const BlockPayAlert = () => {
   const { notification } = App.useApp();
@@ -25,7 +26,17 @@ const BlockPayAlert = () => {
 };
 
 export default function () {
-  const { selectedMovie } = useContext(ListMoviesContext);
+  const {
+    selectedMovie,
+    selectedDate,
+    selectedTime,
+    selectedCity,
+    totalTickets,
+    cleanSelection,
+    showChangeData,
+  } = useContext(ListMoviesContext);
+
+  const navigate = useNavigate();
 
   return (
     <div className="bg-white rounded-lg shadow-xl">
@@ -67,7 +78,9 @@ export default function () {
                 <p className="text-sm text-gray-500 font-bold">Lugar</p>
                 <p className="font-medium">
                   {/* Pendiente selección */}
-                  <span className="text-gray-400 italic">Por seleccionar</span>
+                  <span className="text-gray-400 italic">
+                    {showChangeData ? selectedCity : "Por seleccionar"}
+                  </span>
                 </p>
               </div>
 
@@ -75,7 +88,9 @@ export default function () {
               <div>
                 <p className="text-sm text-gray-500 font-bold">Fecha</p>
                 <p className="font-medium">
-                  <span className="text-gray-400 italic">Por seleccionar</span>
+                  <span className="text-gray-400 italic">
+                    {showChangeData ? selectedDate.date : "Por seleccionar"}
+                  </span>
                 </p>
               </div>
 
@@ -83,7 +98,9 @@ export default function () {
               <div>
                 <p className="text-sm text-gray-500 font-bold">Horario</p>
                 <p className="font-medium">
-                  <span className="text-gray-400 italic">Por seleccionar</span>
+                  <span className="text-gray-400 italic">
+                    {showChangeData ? selectedTime.time : "Por seleccionar"}
+                  </span>
                 </p>
               </div>
 
@@ -91,7 +108,9 @@ export default function () {
               <div>
                 <p className="text-sm text-gray-500 font-bold">Boletos</p>
                 <p className="font-medium">
-                  <span className="text-gray-400 italic">Por seleccionar</span>
+                  <span className="text-gray-400 italic">
+                    {showChangeData ? totalTickets : "Por seleccionar"}
+                  </span>
                 </p>
               </div>
             </div>
@@ -100,9 +119,16 @@ export default function () {
 
         {/** Botón para acceder a la página de pago (inhabilitado) */}
         <div className="pt-12 pb-2 inset-x-0 bottom-0">
-          <App>
-            <BlockPayAlert />
-          </App>
+          {showChangeData ? (
+            <button className="w-full bg-red-700 rounded-lg py-1 text-white"
+            onClick={() => {
+              cleanSelection();
+            }}>Pagar</button>
+          ) : (
+            <App>
+              <BlockPayAlert />
+            </App>
+          )}
         </div>
 
         {/** Pruebas de contenido MovieCard */}
