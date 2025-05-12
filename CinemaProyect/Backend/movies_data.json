@@ -1,0 +1,422 @@
+[
+  {
+    "id": 1,
+    "title": "The Social Network",
+    "imageUrl": "https://m.media-amazon.com/images/M/MV5BMjlkNTE5ZTUtNGEwNy00MGVhLThmZjMtZjU1NDE5Zjk1NDZkXkEyXkFqcGc@._V1_SX300.jpg",
+    "release_date": "2010",
+    "runtime": "120 min",
+    "category": "PG-13",
+    "genre": "Biography, Drama",
+    "rating": 7.8,
+    "overview": "As Harvard student Mark Zuckerberg creates the social networking site that would become known as Facebook, he is sued by the twins who claimed he stole their idea and by the co-founder who was later squeezed out of the business.",
+    "secondaryImage": "https://m.media-amazon.com/images/M/MV5BMTY3ODQ1OTctYmMxOC00OGIzLWJhZjctN2ViMTgzMGJiMGU4XkEyXkFqcGc@.V1_QL75_UX1212.jpg",
+    "trailerLink": "https://www.youtube.com/watch?v=lB95KLmpLR4&pp=ygUadGhlIHNvY2lhbCBuZXR3b3JrIHRyYWlsZXI%3D",
+    "director": "David Fincher",
+    "actors": "Jesse Eisenberg, Andrew Garfield, Justin Timberlake",
+    "awards": "https://www.imdb.com/es/title/tt1285016/awards/?ref_=tt_awd",
+    "showTimes": [
+      {
+        "id": 1,
+        "date": "2025-06-20",
+        "times": [
+          {
+            "id": 101,
+            "time": "14:30",
+            "room": "Sala 3",
+            "format": "2D",
+            "language": "Subtitulada",
+            "availableSeats": 45
+          },
+          {
+            "id": 102,
+            "time": "17:15",
+            "room": "Sala 1",
+            "format": "2D",
+            "language": "Español",
+            "availableSeats": 38
+          },
+          {
+            "id": 103,
+            "time": "20:00",
+            "room": "Sala 4",
+            "format": "2D",
+            "language": "Subtitulada",
+            "availableSeats": 50
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "date": "2025-02-21",
+        "times": [
+          {
+            "id": 104,
+            "time": "15:45",
+            "room": "Sala 2",
+            "format": "2D",
+            "language": "Español",
+            "availableSeats": 42
+          },
+          {
+            "id": 105,
+            "time": "18:30",
+            "room": "Sala 5",
+            "format": "2D",
+            "language": "Subtitulada",
+            "availableSeats": 35
+          },
+          {
+            "id": 106,
+            "time": "21:15",
+            "room": "Sala 1",
+            "format": "2D",
+            "language": "Español",
+            "availableSeats": 48
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Better Man",
+    "imageUrl": "https://m.media-amazon.com/images/M/MV5BYWU3YzU0NTItMGVlYi00YTFmLWE5MmQtNjg4ODQ3ZWYyNjRkXkEyXkFqcGc@._V1_SX300.jpg",
+    "release_date": "2024",
+    "runtime": "135 min",
+    "category": "R",
+    "genre": "Biography, Fantasy, Music",
+    "rating": 9.5,
+    "overview": "The meteoric rise, dramatic fall, and remarkable resurgence of British pop superstar Robbie Williams.",
+    "secondaryImage": "https://m.media-amazon.com/images/M/MV5BMWZlZmRkNWUtOTcwMC00MWYzLTk2NzUtYWYxZmUzNjg3ZGFlXkEyXkFqcGc@.V1_QL75_UX1230.jpg",
+    "trailerLink": "https://www.youtube.com/watch?v=KVeH5T4wxkE&pp=ygUSYmV0dGVyIG1hbiB0cmFpbGVy",
+    "director": "Michael Gracey",
+    "actors": "Simon Gleeson, Oliver Cole, Michael Gracey",
+    "awards": "https://www.imdb.com/es/title/tt14260836/awards/?ref_=tt_awd",
+    "showTimes": [
+      {
+        "id": 1,
+        "date": "2025-06-20",
+        "times": [
+          {
+            "id": 101,
+            "time": "14:30",
+            "room": "Sala 3",
+            "format": "2D",
+            "language": "Subtitulada",
+            "availableSeats": 45
+          },
+          {
+            "id": 102,
+            "time": "17:15",
+            "room": "Sala 1",
+            "format": "2D",
+            "language": "Español",
+            "availableSeats": 38
+          },
+          {
+            "id": 103,
+            "time": "20:00",
+            "room": "Sala 4",
+            "format": "2D",
+            "language": "Subtitulada",
+            "availableSeats": 50
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "date": "2025-02-21",
+        "times": [
+          {
+            "id": 104,
+            "time": "15:45",
+            "room": "Sala 2",
+            "format": "2D",
+            "language": "Español",
+            "availableSeats": 42
+          },
+          {
+            "id": 105,
+            "time": "18:30",
+            "room": "Sala 5",
+            "format": "2D",
+            "language": "Subtitulada",
+            "availableSeats": 35
+          },
+          {
+            "id": 106,
+            "time": "21:15",
+            "room": "Sala 1",
+            "format": "2D",
+            "language": "Español",
+            "availableSeats": 48
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Mulholland Drive",
+    "imageUrl": "https://m.media-amazon.com/images/M/MV5BNjliY2UwMjQtYjVlNi00NzExLTg1MDMtMjE2OTYwYjI0NTcxXkEyXkFqcGc@._V1_SX300.jpg",
+    "release_date": "2001",
+    "runtime": "147 min",
+    "category": "R",
+    "genre": "Drama, Mystery, Thriller",
+    "rating": 9.8,
+    "overview": "After a car wreck on Mulholland Drive renders a woman amnesiac, she and a Hollywood-hopeful search for clues and answers across Los Angeles in a twisting venture beyond dreams and reality.",
+    "secondaryImage": "https://m.media-amazon.com/images/M/MV5BZjk1OGMxNjctNDMyMi00NDE2LThlOGMtYjExYjg4OGJhODY1XkEyXkFqcGc@.V1_QL75_UX603.jpg",
+    "trailerLink": "https://www.youtube.com/watch?v=3oa64ktrwKY&pp=ygUZbXVsaG9sbGFuZCBkcml2ZSB0cmFpbGVyIA%3D%3D",
+    "director": "David Lynch",
+    "actors": "Naomi Watts, Laura Harring, Justin Theroux",
+    "awards": "https://www.imdb.com/es/title/tt0166924/awards/?ref_=tt_awd",
+    "showTimes": [
+      {
+        "id": 1,
+        "date": "2025-06-20",
+        "times": [
+          {
+            "id": 101,
+            "time": "14:30",
+            "room": "Sala 3",
+            "format": "2D",
+            "language": "Subtitulada",
+            "availableSeats": 45
+          },
+          {
+            "id": 102,
+            "time": "17:15",
+            "room": "Sala 1",
+            "format": "2D",
+            "language": "Español",
+            "availableSeats": 38
+          },
+          {
+            "id": 103,
+            "time": "20:00",
+            "room": "Sala 4",
+            "format": "2D",
+            "language": "Subtitulada",
+            "availableSeats": 50
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "date": "2025-02-21",
+        "times": [
+          {
+            "id": 104,
+            "time": "15:45",
+            "room": "Sala 2",
+            "format": "2D",
+            "language": "Español",
+            "availableSeats": 42
+          },
+          {
+            "id": 105,
+            "time": "18:30",
+            "room": "Sala 5",
+            "format": "2D",
+            "language": "Subtitulada",
+            "availableSeats": 35
+          },
+          {
+            "id": 106,
+            "time": "21:15",
+            "room": "Sala 1",
+            "format": "2D",
+            "language": "Español",
+            "availableSeats": 48
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "date": "2025-08-15",
+        "times": [
+          {
+            "id": 104,
+            "time": "15:45",
+            "room": "Sala 2",
+            "format": "2D",
+            "language": "Español",
+            "availableSeats": 42
+          },
+          {
+            "id": 105,
+            "time": "18:30",
+            "room": "Sala 5",
+            "format": "2D",
+            "language": "Subtitulada",
+            "availableSeats": 35
+          },
+          {
+            "id": 106,
+            "time": "21:15",
+            "room": "Sala 1",
+            "format": "2D",
+            "language": "Español",
+            "availableSeats": 48
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Dogville",
+    "imageUrl": "https://m.media-amazon.com/images/M/MV5BMTkwNTg2MTI1NF5BMl5BanBnXkFtZTcwMDM1MzUyMQ@@._V1_SX300.jpg",
+    "release_date": "2003",
+    "runtime": "178 min",
+    "category": "R",
+    "genre": "Crime, Drama",
+    "rating": 8.0,
+    "overview": "A woman on the run from the mob is reluctantly accepted in a small Colorado community in exchange for labor, but when a search visits the town she finds out that their support has a price.",
+    "secondaryImage": "https://m.media-amazon.com/images/M/MV5BYWY3N2QzOTAtZTU0Ny00YzViLWI4NWQtOThhODg5ZjA4Y2IxXkEyXkFqcGc@.V1_QL75_UX1212.jpg",
+    "trailerLink": "https://www.youtube.com/watch?v=dC3UFn5MeCg&pp=ygURZG9ndmlsbGUgdHJhaWxlciA%3D",
+    "director": "Lars Von Trier",
+    "actors": "Nicole Kidman, Paul Bettany, Lauren Bacall",
+    "awards": "https://www.imdb.com/es/title/tt0276919/awards/?ref_=tt_awd",
+    "showTimes": [
+      {
+        "id": 1,
+        "date": "2025-06-20",
+        "times": [
+          {
+            "id": 101,
+            "time": "14:30",
+            "room": "Sala 3",
+            "format": "2D",
+            "language": "Subtitulada",
+            "availableSeats": 45
+          },
+          {
+            "id": 102,
+            "time": "17:15",
+            "room": "Sala 1",
+            "format": "2D",
+            "language": "Español",
+            "availableSeats": 38
+          },
+          {
+            "id": 103,
+            "time": "20:00",
+            "room": "Sala 4",
+            "format": "2D",
+            "language": "Subtitulada",
+            "availableSeats": 50
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "date": "2025-02-21",
+        "times": [
+          {
+            "id": 104,
+            "time": "15:45",
+            "room": "Sala 2",
+            "format": "2D",
+            "language": "Español",
+            "availableSeats": 42
+          },
+          {
+            "id": 105,
+            "time": "18:30",
+            "room": "Sala 5",
+            "format": "2D",
+            "language": "Subtitulada",
+            "availableSeats": 35
+          },
+          {
+            "id": 106,
+            "time": "21:15",
+            "room": "Sala 1",
+            "format": "2D",
+            "language": "Español",
+            "availableSeats": 48
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "title": "Reservoir Dogs",
+    "imageUrl": "https://m.media-amazon.com/images/M/MV5BMmMzYjg4NDctYWY0Mi00OGViLWIzMTMtYWNlZGY5ZDJmYjk3XkEyXkFqcGc@._V1_SX300.jpg",
+    "release_date": "1997",
+    "runtime": "99 min",
+    "category": "R",
+    "genre": "Crime, Thriller",
+    "rating": 8.3,
+    "overview": "When a simple jewelry heist goes horribly wrong, the surviving criminals begin to suspect that one of them is a police informant.",
+    "secondaryImage": "https://m.media-amazon.com/images/M/MV5BMzNmOWQ0NGUtNjQyMi00MWIwLThiMTctYzZkYmJhMWQ2MzBjXkEyXkFqcGc@.V1_QL75_UX1212.jpg",
+    "trailerLink": "https://www.youtube.com/watch?v=2KLZ4fSXtgI&pp=ygUXcmVzZXJ2b2lyIGRvZ3MgdHJhaWxlciA%3D",
+    "director": "Quentin Tarantino",
+    "actors": "Harvey Keitel, Tim Roth, Michael Madsen",
+    "awards": "https://www.imdb.com/es/title/tt0105236/awards/?ref_=tt_awd",
+    "showTimes": [
+      {
+        "id": 1,
+        "date": "2025-06-20",
+        "times": [
+          {
+            "id": 101,
+            "time": "14:30",
+            "room": "Sala 3",
+            "format": "2D",
+            "language": "Subtitulada",
+            "availableSeats": 45
+          },
+          {
+            "id": 102,
+            "time": "17:15",
+            "room": "Sala 1",
+            "format": "2D",
+            "language": "Español",
+            "availableSeats": 38
+          },
+          {
+            "id": 103,
+            "time": "20:00",
+            "room": "Sala 4",
+            "format": "2D",
+            "language": "Subtitulada",
+            "availableSeats": 50
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "date": "2025-02-21",
+        "times": [
+          {
+            "id": 104,
+            "time": "15:45",
+            "room": "Sala 2",
+            "format": "2D",
+            "language": "Español",
+            "availableSeats": 42
+          },
+          {
+            "id": 105,
+            "time": "18:30",
+            "room": "Sala 5",
+            "format": "2D",
+            "language": "Subtitulada",
+            "availableSeats": 35
+          },
+          {
+            "id": 106,
+            "time": "21:15",
+            "room": "Sala 1",
+            "format": "2D",
+            "language": "Español",
+            "availableSeats": 48
+          }
+        ]
+      }
+    ]
+  }
+]
