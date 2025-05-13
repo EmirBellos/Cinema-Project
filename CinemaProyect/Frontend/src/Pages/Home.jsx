@@ -13,7 +13,7 @@ export default function Home() {
       cleanSelection();
       cleanShowsProcess();
     };
-  });
+  }, []);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-background">

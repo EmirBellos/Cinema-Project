@@ -74,10 +74,7 @@ export default function Cartelera() {
 
                   <button
                     className="w-full flex justify-center items-center mt-2 sm:mt-4 px-2 sm:px-4 py-1 sm:py-2 bg-green-800 text-white text-sm sm:text-base rounded-full hover:bg-button-green transition-colors duration-300"
-                    onClick={() => {
-                      handleMovieSelection(movie.id),
-                        navigate("/SeleccionHorarios");
-                    }}
+                    onClick={() => handleMovieSelection(movie.id, navigate)}
                   >
                     <HiTicket className="mr-2" />
                     Horarios

@@ -3,39 +3,67 @@ import { useNavigate } from "react-router-dom";
 import { ListMoviesContext } from "../Context/ListMoviesContext";
 
 export default function BannerCartelera() {
-  const {  loading, moviesList, handleMovieSelection } =
-    useContext(ListMoviesContext);
+  const { loading, moviesList, handleMovieSelection } = useContext(ListMoviesContext);
   const [bannerMovie, setBannerMovie] = useState(null);
+  const [imageError, setImageError] = useState(false);
   const navigate = useNavigate();
 
   // Obtiene una película de manera aleatoria para el banner
   useEffect(() => {
     if (moviesList.length > 0 && !bannerMovie) {
-      const randomIndex = Math.floor(Math.random() * moviesList.length);
-      setBannerMovie(moviesList[randomIndex]);
+      // Filtrar películas que tengan secondaryImage válida
+      const moviesWithImages = moviesList.filter(movie => 
+        movie.secondaryImage && movie.secondaryImage.length > 10
+      );
+      
+      if (moviesWithImages.length > 0) {
+        const randomIndex = Math.floor(Math.random() * moviesWithImages.length);
+        setBannerMovie(moviesWithImages[randomIndex]);
+      } else {
+        // Si ninguna película tiene imagen secundaria, usar la primera con imagen principal
+        setBannerMovie(moviesList[0]);
+      }
     }
   }, [moviesList, bannerMovie]);
 
-  if (!bannerMovie) {
-    return <div>Cargando...</div>;
+  // Manejo de carga
+  if (loading || !bannerMovie) {
+    return (
+      <div className="relative w-full pt-16 sm:pt-20">
+        <div className="relative aspect-[4/3] sm:aspect-[16/9] md:aspect-[2/1] lg:aspect-[2.5/1] bg-gray-200 animate-pulse">
+          <div className="absolute inset-0 flex items-center justify-center">
+            <span className="text-gray-400">Cargando banner...</span>
+          </div>
+        </div>
+      </div>
+    );
   }
 
-  // Manejo de estados de carga y error
-  if (loading) {
-    return <div>Cargando...</div>;
-  }
-  
+  // Determinar qué imagen usar (secundaria, principal o fallback)
+  const bannerImage = (!imageError && bannerMovie.secondaryImage) 
+    ? bannerMovie.secondaryImage 
+    : (bannerMovie.imageUrl || 'https://via.placeholder.com/1200x500?text=No+Image+Available');
+
+  // Navegación mejorada
+  const handleBannerClick = () => {
+    handleMovieSelection(bannerMovie.id);
+    // Usar timeout para dar tiempo a que se complete la selección
+    setTimeout(() => navigate("/SeleccionHorarios"), 100);
+  };
 
   return (
     <div className="relative w-full pt-16 sm:pt-20">
       {/* Contenedor principal con aspect ratio */}
       <div className="relative aspect-[4/3] sm:aspect-[16/9] md:aspect-[2/1] lg:aspect-[2.5/1]">
         <img
-          src={bannerMovie.secondaryImage}
+          src={bannerImage}
           alt={bannerMovie.title}
-          className="absolute inset-0 w-full h-full  object-cover"
+          className="absolute inset-0 w-full h-full object-cover"
+          onError={() => {
+            console.log("Error cargando imagen secundaria, usando alternativa");
+            setImageError(true);
+          }}
         />
-        {/**Añadir nuevas imagenes para el banner. */}
 
         {/** Overlay con gradientes para que la info se vizualice correctamente */}
         <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent">
@@ -72,10 +100,7 @@ export default function BannerCartelera() {
               <div className="flex gap-2 sm:gap-4 pt-2 sm:pt-4">
                 <button
                   className="px-3 sm:px-6 py-1.5 sm:py-2 text-sm sm:text-base bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
-                  onClick={() => {
-                    handleMovieSelection(bannerMovie.id),
-                      navigate("/SeleccionHorarios");
-                  }}
+                  onClick={handleBannerClick}
                 >
                   Ver Horarios
                 </button>

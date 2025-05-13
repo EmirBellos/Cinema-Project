@@ -155,7 +155,7 @@ export default function () {
               className="w-full bg-red-600 hover:bg-red-700 rounded-full py-1 text-white"
               onClick={() => {
                 //cleanSelection();
-                saveBooked(selectedMovie, selectedCity, selectedDate, selectedTime, totalTickets);
+                saveBooked();
                 showNotificationSucces();
                 navigate("/");
                 // Necesito validar que todos los campos del formulario hayan sido completados, utilizar funciones en el context, después añadir modal para mostrar mensaje de éxito
