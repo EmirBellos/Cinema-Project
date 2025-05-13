@@ -11,11 +11,12 @@ import { ListMoviesContext } from "../Context/ListMoviesContext";
 export default function Header() {
   const [scrolled, setScrolled] = useState(false); // Hook para el scrolleo del navegador
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const {clearSelection, cleanSelection} = useContext(ListMoviesContext);
+  const {clearSelection, cleanSelection, cleanShowsProcess} = useContext(ListMoviesContext);
 
   const handleNavigation = () => {
     setIsMenuOpen(false);
     cleanSelection();
+    cleanShowsProcess();
     clearSelection();
 
   };

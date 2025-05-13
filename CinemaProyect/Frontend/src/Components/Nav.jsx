@@ -4,11 +4,12 @@ import { ListMoviesContext } from "../Context/ListMoviesContext";
 
 export default function Nav() {
 
-   const {clearSelection, cleanSelection} = useContext(ListMoviesContext);
+   const {clearSelection, cleanSelection, cleanShowsProcess} = useContext(ListMoviesContext);
   
     const handleNavigation = () => {
       //setIsMenuOpen(false);
       cleanSelection();
+      cleanShowsProcess();
       clearSelection();
     };
   return (

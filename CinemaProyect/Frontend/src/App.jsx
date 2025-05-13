@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import {useContext, useEffect} from 'react';
 import {ListMoviesContext} from './Context/ListMoviesContext';
+import { MovieSelectionGuard, ScheduleSelectionGuard, TicketsSelectionGuard } from './RouteGuards';
 // Importar todas las rutas
 import Layout from "./Components/Layout";
 import Home from "./Pages/Home";
@@ -32,6 +33,7 @@ function ScrollTop() {
 }
 
 function App() {
+
   return (
     <Router>
       <ScrollTop />
@@ -43,7 +45,7 @@ function App() {
               <Home />
             </Layout>
           }
-        ></Route>
+        />
         <Route
           path="/Cartelera"
           element={
@@ -51,7 +53,7 @@ function App() {
               <Cartelera />
             </Layout>
           }
-        ></Route>
+        />
         <Route
           path="/EditarReserva"
           element={
@@ -59,30 +61,42 @@ function App() {
               <EditarReserva />
             </Layout>
           }
-        ></Route>
+        />
         <Route
           path="/SeleccionHorarios"
           element={
-            <ProtectedRoute>
+            <MovieSelectionGuard>
               <Layout>
                 <SeleccionHorarios />
               </Layout>
-            </ProtectedRoute>
+            </MovieSelectionGuard>
           }
-        ></Route>
-        <Route
+        />
+        {/* <Route
           path="/SeccionAsientos"
           element={
-            <ProtectedRoute>
+            <ScheduleSelectionGuard>
               <Layout>
                 <SeccionAsientos />
               </Layout>
-            </ProtectedRoute>
+            </ScheduleSelectionGuard>
           }
-        ></Route>
+        /> */}
+        {/* <Route
+          path="/FormularioPago"
+          element={
+            <TicketsSelectionGuard>
+              <Layout>
+                <FormularioPago />
+              </Layout>
+            </TicketsSelectionGuard>
+          }
+        /> */}
       </Routes>
     </Router>
   );
+
+  
 }
 
 export default App;

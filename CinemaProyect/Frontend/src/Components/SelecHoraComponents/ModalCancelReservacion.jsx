@@ -1,15 +1,17 @@
 import React, { useState, useContext } from "react";
 import { Dialog, Heading, Modal, ModalOverlay } from "react-aria-components";
 import { ListMoviesContext } from "../../Context/ListMoviesContext";
+import { useNavigate } from "react-router-dom";
 
 export default function ModalCancelReservacion() {
-  const { cleanSelection, showCancelationModal, handleModalCancelReserva } =
+  const { cleanSelection, showCancelationModal, handleModalCancelReserva, cleanShowsProcess } =
     useContext(ListMoviesContext);
+    const navigate = useNavigate();
 
   const handleCancelReserva = () => {
     handleModalCancelReserva(false);
     cleanSelection();
-    //navigate("/");
+    navigate("/");
   };
 
   const handleBackToReserva = () => {

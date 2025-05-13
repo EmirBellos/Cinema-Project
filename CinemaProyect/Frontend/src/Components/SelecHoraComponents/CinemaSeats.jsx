@@ -1,10 +1,11 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { FaCheck } from "react-icons/fa6";
-//import { X, Check } from 'lucide-react';
 import { ListMoviesContext } from "../../Context/ListMoviesContext";
+import { notification } from "antd";
 
 export default function CinemaSeats() {
-  const { handleShowsFormDataUser } = useContext(ListMoviesContext);
+  const { handleShowsFormDataUser, totalTickets, saveSelectedSeats } = useContext(ListMoviesContext);
+  
   // Configuración del mapa de asientos (filas y columnas)
   const rows = 8;
   const cols = 12;
@@ -23,23 +24,62 @@ export default function CinemaSeats() {
   // Estados
   const [occupiedSeats] = useState(generateOccupiedSeats());
   const [selectedSeats, setSelectedSeats] = useState({});
-  /* Pienso en implementar un try catch utilizando el satate totalTickets del context 
-  para limitar la cantidad de veces que clickea asientos, 
-  correspondiendo los asientos a la cantidad de tickets seleccionada */
+  const [exceedLimitWarning, setExceedLimitWarning] = useState(false);
+  
+  // Mostrar advertencia cuando se intenta seleccionar más asientos de lo permitido
+  const showExceedLimitNotification = () => {
+    if (!exceedLimitWarning) {
+      notification.warning({
+        message: "Límite de asientos alcanzado",
+        description: `Solo puedes seleccionar ${totalTickets} asiento(s) según los boletos comprados.`,
+        placement: "top",
+        duration: 3,
+        style: {
+          borderRadius: "5px",
+          border: "2px solid #E6A23C",
+        },
+      });
+      setExceedLimitWarning(true);
+      
+      // Restablecer la bandera después de un tiempo para permitir mostrar otra notificación
+      setTimeout(() => {
+        setExceedLimitWarning(false);
+      }, 3000);
+    }
+  };
+
   // Maneja cuando se hace clic en un asiento
   const handleSeatClick = (seatId) => {
     if (occupiedSeats[seatId]) return; // No permitir seleccionar asientos ocupados
 
     setSelectedSeats((prev) => {
       const updated = { ...prev };
+      
+      // Si el asiento ya está seleccionado, permite deseleccionarlo
       if (updated[seatId]) {
-        delete updated[seatId]; // Deseleccionar si ya estaba seleccionado
-      } else {
-        updated[seatId] = true; // Seleccionar si no estaba seleccionado
+        delete updated[seatId]; // Deseleccionar
+        return updated;
       }
+      
+      // Verificar si ya se alcanzó el límite de boletos
+      const currentSelectedCount = Object.keys(updated).length;
+      if (currentSelectedCount >= totalTickets) {
+        // Mostrar advertencia y no permitir seleccionar más asientos
+        showExceedLimitNotification();
+        return prev; // Mantener la selección anterior sin cambios
+      }
+      
+      // Si hay espacio disponible, seleccionar el asiento
+      updated[seatId] = true;
       return updated;
     });
   };
+
+  // Efecto para mostrar información de la selección de asientos en la consola
+  useEffect(() => {
+    const selectedIds = Object.keys(selectedSeats);
+    console.log("Asientos seleccionados:", selectedIds);
+  }, [selectedSeats]);
 
   // Obtener el estado de un asiento
   const getSeatStatus = (seatId) => {
@@ -109,7 +149,7 @@ export default function CinemaSeats() {
     return (
       <div className="mt-8 p-4 bg-gray-100 rounded-lg">
         <h3 className="font-semibold mb-2">
-          Asientos seleccionados: {selectedIds.length}
+          Asientos seleccionados: {selectedIds.length} de {totalTickets}
         </h3>
         {selectedIds.length > 0 ? (
           <div className="flex flex-wrap gap-2">
@@ -128,14 +168,32 @@ export default function CinemaSeats() {
 
         {selectedIds.length > 0 && (
           <button
-            className="mt-4 bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded flex items-center justify-center gap-2"
+            className={`mt-4 ${selectedIds.length === parseInt(totalTickets) 
+              ? "bg-green-500 hover:bg-green-600" 
+              : "bg-gray-400 cursor-not-allowed"} 
+              text-white py-2 px-4 rounded flex items-center justify-center gap-2`}
             onClick={() => {
-              handleShowsFormDataUser(true);
-              scrollTo({
-                top: 0,
-                behavior: "smooth",
-              });
-            }} // Puedo enviar los ids de los asientos seleccionados mediante una fución en el context
+              if (selectedIds.length === parseInt(totalTickets)) {
+                // Guardar los asientos seleccionados en el contexto
+                if (saveSelectedSeats) {
+                  saveSelectedSeats(selectedIds);
+                }
+                
+                // Avanzar al siguiente paso
+                handleShowsFormDataUser(true);
+                scrollTo({
+                  top: 0,
+                  behavior: "smooth",
+                });
+              } else {
+                notification.warning({
+                  message: "Selección Incompleta",
+                  description: `Por favor selecciona exactamente ${totalTickets} asiento(s).`,
+                  placement: "top",
+                });
+              }
+            }}
+            disabled={selectedIds.length !== parseInt(totalTickets)}
           >
             <FaCheck size={16} />
             <span>Confirmar selección</span>

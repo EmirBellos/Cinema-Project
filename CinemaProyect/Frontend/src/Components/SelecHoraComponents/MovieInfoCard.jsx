@@ -4,6 +4,8 @@ import { App, Button } from "antd";
 import { ListMoviesContext } from "../../Context/ListMoviesContext";
 import { useNavigate } from "react-router-dom";
 import ModalCancelReservacion from "./ModalCancelReservacion";
+import "@ant-design/v5-patch-for-react-19"; // Importar versión compatible con React 19
+import { notification } from "antd";
 
 const BlockPayAlert = () => {
   const { notification } = App.useApp();
@@ -46,6 +48,17 @@ export default function () {
  /*  useEffect(() => {
     setShowCancelationModal(false);
   }, []); */
+  const showNotificationSucces = () => {
+    notification.success({
+      message: "Reservación Exitósa",
+      description: "Gracias por su preferencia.",
+      placement: "top",
+      style: {
+        borderRadius: "5px",
+        border: "2px solid #7a9787",
+      },
+    });
+  };
 
   return (
     <>
@@ -143,6 +156,8 @@ export default function () {
               onClick={() => {
                 //cleanSelection();
                 saveBooked(selectedMovie, selectedCity, selectedDate, selectedTime, totalTickets);
+                showNotificationSucces();
+                navigate("/");
                 // Necesito validar que todos los campos del formulario hayan sido completados, utilizar funciones en el context, después añadir modal para mostrar mensaje de éxito
               }}
               >
