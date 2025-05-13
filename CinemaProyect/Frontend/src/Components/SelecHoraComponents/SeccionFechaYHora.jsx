@@ -1,10 +1,8 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import { ListMoviesContext } from "../../Context/ListMoviesContext";
 import MovieInfoCard from "./MovieInfoCard";
-//import SelecCantidadBoletos from "./SelecCantidadBoletos";
-import "@ant-design/v5-patch-for-react-19"; // Importar versión compatible con React 19
+import "@ant-design/v5-patch-for-react-19";
 import { notification } from "antd";
-//import { useNavigate } from "react-router-dom";
 
 export default function SeccionFechaYHora() {
   const {
@@ -15,9 +13,83 @@ export default function SeccionFechaYHora() {
     selectedTime,
     selectedCity,
     handleChangeMovieInfoCard,
+    loadDates,
+    loadTimes,
+    loading,
+    error,
   } = useContext(ListMoviesContext);
-  //const [showSeats, setShowSeats] = useState(false);
-  //const navigate = useNavigate();
+  const [fechas, setFechas] = useState([]);
+  const [horarios, setHorarios] = useState([]);
+  const scrollPosRef = useRef(0);
+  // Cargar fechas si es necesario
+  useEffect(() => {
+    if (selectedMovie?.id) {
+      const fetchDates = async () => {
+        try {
+          // Usar fechas de la API si están disponibles
+          if (selectedMovie.showTimes && selectedMovie.showTimes.length > 0) {
+            console.log(
+              "Usando fechas del objeto película:",
+              selectedMovie.showTimes
+            );
+            setFechas(selectedMovie.showTimes);
+          } else if (
+            selectedMovie.show_dates &&
+            selectedMovie.show_dates.length > 0
+          ) {
+            // API puede usar show_dates en lugar de showTimes
+            console.log(
+              "Usando show_dates del objeto película:",
+              selectedMovie.show_dates
+            );
+            setFechas(selectedMovie.show_dates);
+          } else {
+            // Cargar fechas con función específica
+            console.log("Cargando fechas desde API...");
+            const dates = await loadDates(selectedMovie.id);
+            console.log("Fechas cargadas:", dates);
+            setFechas(dates || []);
+          }
+        } catch (err) {
+          console.error("Error al cargar fechas:", err);
+        }
+      };
+
+      fetchDates();
+    }
+  }, [selectedMovie, loadDates]);
+
+  // Actualizar horarios cuando se selecciona una fecha
+  useEffect(() => {
+    if (selectedDate?.id && selectedMovie?.id) {
+      const fetchTimes = async () => {
+        try {
+          // Si selectedDate ya tiene times, usarlos
+          if (selectedDate.times && selectedDate.times.length > 0) {
+            setHorarios(selectedDate.times);
+            return;
+          }
+
+          if (selectedDate.show_times && selectedDate.show_times.length > 0) {
+            setHorarios(selectedDate.show_times);
+            return;
+          }
+
+          // Si no, cargarlos desde la API
+          console.log("Cargando horarios desde API...");
+          const times = await loadTimes(selectedMovie.id, selectedDate.id);
+          console.log("Horarios cargados:", times);
+          setHorarios(times || []);
+        } catch (err) {
+          console.error("Error al cargar horarios:", err);
+        }
+      };
+
+      fetchTimes();
+    } else {
+      setHorarios([]);
+    }
+  }, [selectedDate, selectedMovie, loadTimes]);
 
   const showNotification = () => {
     notification.warning({
@@ -35,14 +107,21 @@ export default function SeccionFechaYHora() {
     if (!selectedCity) {
       showNotification();
     } else {
-      //navigate("/SeccionAsientos");
       handleChangeMovieInfoCard(true);
       scrollTo({
         top: 0,
-        behavior: 'smooth',
+        behavior: "smooth",
       });
     }
   };
+
+  if (loading) {
+    return <div className="text-center py-8">Cargando información...</div>;
+  }
+
+  if (error) {
+    return <div className="text-center py-8 text-red-500">{error}</div>;
+  }
 
   if (!selectedMovie) {
     return <div>No hay película seleccionada</div>;
@@ -58,35 +137,55 @@ export default function SeccionFechaYHora() {
             <h3 className="text-lg font-semibold flex justify-center">
               Fechas disponibles
             </h3>
-            <div className="flex gap-4 overflow-x-auto pb-2">
-              {selectedMovie.showTimes.map((dateOption) => (
-                <button
-                  key={dateOption.id}
-                  onClick={() => handleDateSelection(dateOption)}
-                  className={`px-4 py-2 rounded-lg flex-shrink-0 ${
-                    selectedDate?.id === dateOption.id
-                      ? "bg-red-600 text-white"
-                      : "bg-gray-100 hover:bg-gray-200"
-                  }`}
-                >
-                  {new Date(dateOption.date).toLocaleDateString("es-ES", {
-                    weekday: "short",
-                    month: "short",
-                    day: "numeric",
-                  })}
-                </button>
-              ))}
-            </div>
+            {fechas && fechas.length > 0 ? (
+              <div className="flex gap-4 overflow-x-auto pb-2">
+                {fechas.map((dateOption) => (
+                  <button
+                    key={dateOption.id}
+                    onClick={(e) => {
+                      // Guardar la posición actual del scroll
+                      scrollPosRef.current = window.scrollY;
+
+                      // Cambiar la fecha
+                      handleDateSelection(dateOption);
+
+                      // Restaurar la posición del scroll después de renderizar
+                      setTimeout(() => {
+                        window.scrollTo({
+                          top: scrollPosRef.current,
+                          behavior: "auto", // No usar "smooth" aquí para evitar animación visible
+                        });
+                      }, 0);
+                    }}
+                    className={`px-4 py-2 rounded-lg flex-shrink-0 ${
+                      selectedDate?.id === dateOption.id
+                        ? "bg-red-600 text-white"
+                        : "bg-gray-100 hover:bg-gray-200"
+                    }`}
+                  >
+                    {new Date(dateOption.date).toLocaleDateString("es-ES", {
+                      weekday: "short",
+                      month: "short",
+                      day: "numeric",
+                    })}
+                  </button>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-4 bg-gray-100 rounded-lg">
+                No hay fechas disponibles para esta película
+              </div>
+            )}
           </div>
 
           {/* Horarios */}
-          {selectedDate && (
+          {selectedDate && horarios.length > 0 && (
             <div className="space-y-4">
               <h3 className="text-lg font-semibold flex justify-center">
                 Horarios disponibles
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {selectedDate.times.map((timeSlot) => (
+                {horarios.map((timeSlot) => (
                   <button
                     key={timeSlot.id}
                     onClick={() => handleTimeSelection(timeSlot)}
@@ -110,7 +209,7 @@ export default function SeccionFechaYHora() {
             </div>
           )}
 
-          {/* Botón de continuar (añadir lógica para continuar)*/}
+          {/* Botón de continuar */}
           {selectedTime && (
             <div className="pt-6">
               <button
