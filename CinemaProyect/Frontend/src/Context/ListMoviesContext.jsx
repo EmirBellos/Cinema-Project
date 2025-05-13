@@ -267,32 +267,51 @@ export function ListMoviesContextProvider(props) {
       total_amount: costTickets
     };
     
-    console.log("Enviando datos de reserva:", reservationData);
+    console.log("API URL:", '/api/reservations/');
+    console.log("Enviando datos de reserva:", JSON.stringify(reservationData, null, 2));
     
-    // Enviar la petición al backend
-    const response = await fetch('/api/reservations/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(reservationData)
-    });
-    
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.error || 'Error al crear la reserva');
+    // Enviar la petición al backend con más información de depuración
+    try {
+      const response = await fetch('/api/reservations/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify(reservationData)
+      });
+      
+      console.log("Status Code:", response.status);
+      console.log("Status Text:", response.statusText);
+      console.log("Headers:", [...response.headers.entries()]);
+      
+      const contentType = response.headers.get("content-type");
+      if (contentType && contentType.indexOf("application/json") !== -1) {
+        const responseData = await response.json();
+        console.log("Response Data:", responseData);
+        
+        if (!response.ok) {
+          throw new Error(responseData.error || `Error ${response.status}: ${response.statusText}`);
+        }
+        
+        notification.success({
+          message: "Reserva creada",
+          description: "Tu reserva se ha creado exitosamente",
+          placement: "top"
+        });
+        
+        return responseData;
+      } else {
+        // Si la respuesta no es JSON, obtener el texto
+        const text = await response.text();
+        console.log("Response Text:", text);
+        throw new Error(`Error en respuesta del servidor: ${text}`);
+      }
+    } catch (fetchError) {
+      console.error("Error detallado en fetch:", fetchError);
+      throw fetchError;
     }
     
-    const booking = await response.json();
-    console.log("Reserva creada exitosamente:", booking);
-    
-    notification.success({
-      message: "Reserva creada",
-      description: "Tu reserva se ha creado exitosamente",
-      placement: "top"
-    });
-    
-    return booking;
   } catch (error) {
     console.error("Error al crear la reserva:", error);
     
@@ -306,7 +325,7 @@ export function ListMoviesContextProvider(props) {
   } finally {
     setLoading(false);
   }
-}, [selectedMovie, selectedDate, selectedTime, selectedSeatsIds, userData, costTickets]);
+}, [selectedMovie, selectedDate, selectedTime, selectedSeatsIds, userData, costTickets, setLoading]);
 
   // Función para completar el pago de una reserva
   const completePayment = async (paymentMethod = 'CREDIT_CARD') => {
