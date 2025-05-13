@@ -4,13 +4,14 @@ import { MdOutlineLocalMovies } from "react-icons/md";
 import { ListMoviesContext } from "../Context/ListMoviesContext";
 
 export default function Home() {
-  const { cleanSelection } = useContext(ListMoviesContext);
+  const { cleanSelection, cleanShowsProcess } = useContext(ListMoviesContext);
   const navigate = useNavigate();
   
   // Limpia la selección de película 
   useEffect(() => {
     return () => {
       cleanSelection();
+      cleanShowsProcess();
     };
   });
 

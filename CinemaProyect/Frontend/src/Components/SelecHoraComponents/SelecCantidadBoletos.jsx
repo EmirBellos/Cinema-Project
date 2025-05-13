@@ -13,9 +13,10 @@ import { ListMoviesContext } from "../../Context/ListMoviesContext";
 import { useNavigate } from "react-router-dom";
 import "@ant-design/v5-patch-for-react-19"; // Importar versión compatible con React 19
 import { notification } from "antd";
+import ModalCancelReservacion from "./ModalCancelReservacion";
 
 export default function SelecCantidadBoletos() {
-  const { handleTicketsSelection, cleanSelection } = useContext(ListMoviesContext);
+  const { handleTicketsSelection, cleanSelection, showCancelationModal, handleModalCancelReserva } = useContext(ListMoviesContext);
   const [countAdultTickets, setCountAdultTickets] = useState(0);
   const [countKidTickets, setCountKidTickets] = useState(0);
   const [costAdultTickets, setCostAdultTickets] = useState(0);
@@ -39,6 +40,7 @@ export default function SelecCantidadBoletos() {
 
   const handleTickets = () => {
     const totalTickets = countAdultTickets + countKidTickets;
+    const costTotal = costAdultTickets + costKidTickets;
 
     console.log("Adult tickets:", countAdultTickets);
     console.log("Kid tickets:", countKidTickets);
@@ -49,18 +51,21 @@ export default function SelecCantidadBoletos() {
       return;
     } else {
       setIsOpen(false);
-      handleTicketsSelection(totalTickets);
+      handleTicketsSelection(totalTickets, costTotal);
     }
   };
 
   const handleCancelation = () => {
     console.log("Proceso cancelado... Redirigiendo a Cartelera");
-    navigate("/Cartelera");
-    setIsOpen(false);
-    cleanSelection();
+    //setIsOpen(false);
+    //cleanSelection();
+    //navigate("/Cartelera");
+    handleModalCancelReserva(true);
+    //cleanShowsProcess();
   };
 
   return (
+    <>
     <ModalOverlay
       isOpen={isOpen}
       className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
@@ -157,5 +162,7 @@ export default function SelecCantidadBoletos() {
         </Dialog>
       </Modal>
     </ModalOverlay>
+    {showCancelationModal && <ModalCancelReservacion />}
+    </>
   );
 }

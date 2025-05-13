@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Nav from "./Nav";
 import { NavLink } from "react-router-dom";
 
@@ -6,10 +6,20 @@ import { NavLink } from "react-router-dom";
 import { MdOutlineLocalMovies } from "react-icons/md";
 import { FaBars } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
+import { ListMoviesContext } from "../Context/ListMoviesContext";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false); // Hook para el scrolleo del navegador
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const {clearSelection, cleanSelection, cleanShowsProcess} = useContext(ListMoviesContext);
+
+  const handleNavigation = () => {
+    setIsMenuOpen(false);
+    cleanSelection();
+    cleanShowsProcess();
+    clearSelection();
+
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -65,7 +75,7 @@ export default function Header() {
           {/**Contenedor para el botón cerrar */}
           <div className="flex justify-end p-4">
             <button
-              onClick={() => setIsMenuOpen(false)}
+              onClick={() => handleNavigation()}
               className="text-white hover:text-gray-300 transition-colors"
             >
               <IoMdClose className="h-6 w-6"/>
@@ -77,7 +87,7 @@ export default function Header() {
             <li>
               <NavLink
                 to="/"
-                onClick={() => setIsMenuOpen(false)}
+                onClick={() => handleNavigation()}
                 className="block hover:text-gray-300 transition-colors"
               >
                 Home
@@ -86,7 +96,7 @@ export default function Header() {
             <li>
               <NavLink
                 to="/Cartelera"
-                onClick={() => setIsMenuOpen(false)}
+                onClick={() => handleNavigation()}
                 className="block hover:text-gray-300 transition-colors"
               >
                 Cartelera
@@ -95,7 +105,7 @@ export default function Header() {
             <li>
               <NavLink
                 to="/EditarReserva"
-                onClick={() => setIsMenuOpen(false)}
+                onClick={() => handleNavigation()}
                 className="block hover:text-gray-300 transition-colors"
               >
                 Editar Reserva

@@ -15,6 +15,7 @@ export default function Cartelera() {
     searchResults,
     handleMovieSelection,
     clearSearch,
+    cleanShowsProcess,
   } = useContext(ListMoviesContext);
 
   // Determina la lista de películas a mostrar: resultados de búsqueda o catálogo completo
@@ -26,6 +27,7 @@ export default function Cartelera() {
   useEffect(() => {
     return () => {
       clearSearch();
+      cleanShowsProcess();
     };
   }, []);
 

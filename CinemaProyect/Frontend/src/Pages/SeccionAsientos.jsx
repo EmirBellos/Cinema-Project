@@ -1,12 +1,14 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import SelecCantidadBoletos from "../Components/SelecHoraComponents/SelecCantidadBoletos";
 import { ListMoviesContext } from "../Context/ListMoviesContext";
 import MovieInfoCard from "../Components/SelecHoraComponents/MovieInfoCard";
 import CinemaSeats from "../Components/SelecHoraComponents/CinemaSeats";
+import FormDataUsuario from "../Components/SelecHoraComponents/FormDataUsuario";
 
 export default function SeccionAsientos() {
   // Corregir error: al salir a la seccion de asientos (utilizando el header, o la navegación en chrome), no se borra el id de la ultimá pelicula seleccionada y eso crea un conflicto.
-  const { selectedMovie } = useContext(ListMoviesContext);
+  const { showFormDataUser } = useContext(ListMoviesContext);
+
   return (
     <>
       <SelecCantidadBoletos />
@@ -14,7 +16,7 @@ export default function SeccionAsientos() {
         <div className="min-h-screen pt-4 lg:pt-6 px-2 sm:px-6 lg:px-8 pb-10 bg-gray-background">
         <div className="max-w-7xl mx-auto">
         <h2 className="text-2xl sm:text-3xl font-bold text-light-black  mt-20 mb-6 sm:mt-22 sm:mb-12 text-center">
-          Selecciona tus Asientos
+          {showFormDataUser ? (<div>Ingrese sus datos</div>) : (<div>Selecciona tus Asientos</div>)}
         </h2>
       <div className="container mx-auto px-4 py-8">
 
@@ -23,7 +25,7 @@ export default function SeccionAsientos() {
               <div className="lg:w-2/3 space-y-6">
                 <div className="space-y-4">
                   {/**Cambiar estilos para añadir el nuevo componente */}
-                  <CinemaSeats />
+                  {showFormDataUser ? (<FormDataUsuario />) : (<CinemaSeats />)}
                 </div>
                 {/* Información de la película (derecha) */}
               </div>
