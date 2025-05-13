@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ListMoviesContext } from "../Context/ListMoviesContext";
 import BannerCartelera from "../Components/BannerCartelera";
 import SearchBar from "../Components/SearchBar";
@@ -15,6 +15,7 @@ export default function Cartelera() {
     searchResults,
     handleMovieSelection,
     clearSearch,
+    cleanShowsProcess,
   } = useContext(ListMoviesContext);
 
   // Determina la lista de películas a mostrar: resultados de búsqueda o catálogo completo
@@ -26,6 +27,7 @@ export default function Cartelera() {
   useEffect(() => {
     return () => {
       clearSearch();
+      cleanShowsProcess();
     };
   }, []);
 

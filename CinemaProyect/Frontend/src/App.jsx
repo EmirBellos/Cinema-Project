@@ -1,12 +1,14 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import {useContext} from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
+import {useContext, useEffect} from 'react';
 import {ListMoviesContext} from './Context/ListMoviesContext';
+import { MovieSelectionGuard, ScheduleSelectionGuard, TicketsSelectionGuard } from './RouteGuards';
 // Importar todas las rutas
 import Layout from "./Components/Layout";
 import Home from "./Pages/Home";
 import Cartelera from "./Pages/Cartelera";
 import EditarReserva from "./Pages/EditarReserva";
 import SeleccionHorarios from "./Pages/SeleccionHorarios";
+import SeccionAsientos from './Pages/SeccionAsientos';
 
 function ProtectedRoute({ children }) {
   const { selectedMovie } = useContext(ListMoviesContext);
@@ -18,9 +20,23 @@ function ProtectedRoute({ children }) {
   return children;
 }
 
+// Función para scroll top con una animación suave en todas las páginas
+function ScrollTop() {
+  const {pathname} = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [pathname]);
+}
+
 function App() {
+
   return (
     <Router>
+      <ScrollTop />
       <Routes>
         <Route
           path="/"
@@ -29,7 +45,7 @@ function App() {
               <Home />
             </Layout>
           }
-        ></Route>
+        />
         <Route
           path="/Cartelera"
           element={
@@ -37,7 +53,7 @@ function App() {
               <Cartelera />
             </Layout>
           }
-        ></Route>
+        />
         <Route
           path="/EditarReserva"
           element={
@@ -45,20 +61,42 @@ function App() {
               <EditarReserva />
             </Layout>
           }
-        ></Route>
+        />
         <Route
           path="/SeleccionHorarios"
           element={
-            <ProtectedRoute>
+            <MovieSelectionGuard>
               <Layout>
                 <SeleccionHorarios />
               </Layout>
-            </ProtectedRoute>
+            </MovieSelectionGuard>
           }
-        ></Route>
+        />
+        {/* <Route
+          path="/SeccionAsientos"
+          element={
+            <ScheduleSelectionGuard>
+              <Layout>
+                <SeccionAsientos />
+              </Layout>
+            </ScheduleSelectionGuard>
+          }
+        /> */}
+        {/* <Route
+          path="/FormularioPago"
+          element={
+            <TicketsSelectionGuard>
+              <Layout>
+                <FormularioPago />
+              </Layout>
+            </TicketsSelectionGuard>
+          }
+        /> */}
       </Routes>
     </Router>
   );
+
+  
 }
 
 export default App;

@@ -1015,5 +1015,4 @@ export const mock_Movies = [
       },
     ],
   },
-  // ... más películas
 ];

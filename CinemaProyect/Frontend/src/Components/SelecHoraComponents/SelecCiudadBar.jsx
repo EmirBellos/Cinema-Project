@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { ListMoviesContext } from "../../Context/ListMoviesContext";
 
 const cities = ["Cancún", "Chetumal", "Playa del Carmen", "Mérida", "Campeche"];
@@ -6,14 +6,16 @@ const cities = ["Cancún", "Chetumal", "Playa del Carmen", "Mérida", "Campeche"
 export default function SelecCiudadBar() {
   const { handleCityChange, selectedCity } = useContext(ListMoviesContext);
 
-  
-
   return (
     <>
       <div className="relative z-10">
         <select
-          value={selectedCity}
-          onChange={(e) => handleCityChange(e.target.value)}
+          autoFocus
+          value={selectedCity || ""}
+          onChange={(e) => {
+            const selectedValue = e.target.value === "" ? null : e.target.value;
+            handleCityChange(selectedValue);
+          }}
           className="w-full px-4 py-2 rounded-lg border border-gray-300 
                           appearance-none bg-white focus:outline-none focus:ring-2 
                           focus:ring-red-500 cursor-pointer text-base sm:text-sm"

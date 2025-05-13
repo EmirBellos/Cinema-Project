@@ -5,17 +5,16 @@ import { PiTrophyLight } from "react-icons/pi";
 
 export default function BannerHorarios() {
   const { loading, selectedMovie } = useContext(ListMoviesContext);
-  const navigate = useNavigate();
 
   // Manejo de estados de carga y error
   if (loading) {
     return <div>Cargando...</div>;
   }
 
-  if (!selectedMovie) {
+ /*  if (!selectedMovie) {
     navigate("/Cartelera");
     return null;
-  }
+  } */
 
   return (
     <div className="relative w-full pt-16 sm:pt-20">
