@@ -1,10 +1,10 @@
 import React, { useState, useContext } from "react";
 import { ListMoviesContext } from "../../Context/ListMoviesContext";
 import MovieInfoCard from "./MovieInfoCard";
-import SelecCantidadBoletos from "./SelecCantidadBoletos";
+//import SelecCantidadBoletos from "./SelecCantidadBoletos";
 import "@ant-design/v5-patch-for-react-19"; // Importar versión compatible con React 19
 import { notification } from "antd";
-import { useNavigate } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 
 export default function SeccionFechaYHora() {
   const {
@@ -17,7 +17,7 @@ export default function SeccionFechaYHora() {
     handleChangeMovieInfoCard,
   } = useContext(ListMoviesContext);
   //const [showSeats, setShowSeats] = useState(false);
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
 
   const showNotification = () => {
     notification.warning({
@@ -37,6 +37,10 @@ export default function SeccionFechaYHora() {
     } else {
       //navigate("/SeccionAsientos");
       handleChangeMovieInfoCard(true);
+      scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
     }
   };
 
@@ -124,13 +128,6 @@ export default function SeccionFechaYHora() {
           <MovieInfoCard />
         </div>
       </div>
-
-      {/** Modal para seleccionar cantidad de asientos */}
-      {/* {addSeats && (
-      <div>
-        <SelecCantidadBoletos isOpen={addSeats} onOpenChange={setAddSeats} />
-      </div>
-    )} */}
     </div>
   );
 }

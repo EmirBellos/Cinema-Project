@@ -8,12 +8,17 @@ export function ListMoviesContextProvider(props) {
   const [loading, setLoading] = useState(true);
   const [searchResults, setSearchResults] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedMovie, setSelectedMovie] = useState(null);
-  const [selectedCity, setSelectedCity] = useState(null);
-  const [selectedDate, setSelectedDate] = useState(null);
-  const [selectedTime, setSelectedTime] = useState(null);
-  const [totalTickets, setTotalTickets] = useState(null);
+  const [selectedMovie, setSelectedMovie] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
+  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedTime, setSelectedTime] = useState("");
+  const [totalTickets, setTotalTickets] = useState("");
+  // UseStates para cambios de formularios dentro de la misma página
   const [showChangeData, setShowChangeData] = useState(false);
+  const [showFormDataUser, setShowFormDataUser] = useState(false);
+  const [showCancelationModal, setShowCancelationModal] = useState(false);
+  
+  
 
 
   // Función para limpiar búsqueda (Importante: Definirla anted de todas las funciones antes del return)
@@ -23,14 +28,17 @@ export function ListMoviesContextProvider(props) {
   };
   // Función para limpiar la selección de película
   const cleanSelection = () => {
-    setSelectedMovie(null);
+    setSelectedMovie("");
   };
   // Función para limpiar la selección de datos de Reserva (Ciudad, Fecha y Hora)
   const clearSelection = () => {
-    setSelectedCity(null);
-    setSelectedDate(null);
-    setSelectedTime(null)
-    setTotalTickets(null);
+    setSelectedCity("");
+    setSelectedDate("");
+    setSelectedTime("")
+    setTotalTickets("");
+    setShowChangeData(false);// crear función especial para limpiar show states
+    setShowFormDataUser(false);
+
   };
 
   // Función que maneja la búsqueda de películas en tiempo real
@@ -85,8 +93,17 @@ export function ListMoviesContextProvider(props) {
     console.log("Total de Boletos seleccionados:", totalTickets);
   }, []);
 
+  // Funciones para manejar el cambio de formularios dentro de la misma página
   const handleChangeMovieInfoCard = (change) => {
     setShowChangeData(change);
+  }
+
+  const handleShowsFormDataUser = (show) => {
+    setShowFormDataUser(show);
+  }
+
+  const handleModalCancelReserva = (show) => {
+    setShowCancelationModal(show);
   }
 
   useEffect(() => {
@@ -140,6 +157,10 @@ export function ListMoviesContextProvider(props) {
         totalTickets,
         handleChangeMovieInfoCard,
         showChangeData,
+        handleShowsFormDataUser,
+        showFormDataUser,
+        handleModalCancelReserva,
+        showCancelationModal,
       }}
     >
       {props.children}

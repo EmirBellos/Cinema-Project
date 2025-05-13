@@ -1,12 +1,14 @@
-import { useState } from 'react';
+import { useState, useContext } from "react";
 import { FaCheck } from "react-icons/fa6";
 //import { X, Check } from 'lucide-react';
+import { ListMoviesContext } from "../../Context/ListMoviesContext";
 
 export default function CinemaSeats() {
+  const { handleShowsFormDataUser } = useContext(ListMoviesContext);
   // Configuración del mapa de asientos (filas y columnas)
   const rows = 8;
   const cols = 12;
-  
+
   // Generar algunos asientos ocupados aleatoriamente para demostración
   const generateOccupiedSeats = () => {
     const occupied = {};
@@ -21,13 +23,15 @@ export default function CinemaSeats() {
   // Estados
   const [occupiedSeats] = useState(generateOccupiedSeats());
   const [selectedSeats, setSelectedSeats] = useState({});
-  
+  /* Pienso en implementar un try catch utilizando el satate totalTickets del context 
+  para limitar la cantidad de veces que clickea asientos, 
+  correspondiendo los asientos a la cantidad de tickets seleccionada */
   // Maneja cuando se hace clic en un asiento
   const handleSeatClick = (seatId) => {
     if (occupiedSeats[seatId]) return; // No permitir seleccionar asientos ocupados
-    
-    setSelectedSeats(prev => {
-      const updated = {...prev};
+
+    setSelectedSeats((prev) => {
+      const updated = { ...prev };
       if (updated[seatId]) {
         delete updated[seatId]; // Deseleccionar si ya estaba seleccionado
       } else {
@@ -36,29 +40,35 @@ export default function CinemaSeats() {
       return updated;
     });
   };
-  
+
   // Obtener el estado de un asiento
   const getSeatStatus = (seatId) => {
-    if (selectedSeats[seatId]) return 'selected';
-    if (occupiedSeats[seatId]) return 'occupied';
-    return 'available';
+    if (selectedSeats[seatId]) return "selected";
+    if (occupiedSeats[seatId]) return "occupied";
+    return "available";
   };
-  
+
   // Renderizar un asiento individual
   const renderSeat = (row, col) => {
     const seatId = `${row}${col}`;
     const status = getSeatStatus(seatId);
-    
-    let bgColor = 'bg-gray-200 hover:bg-blue-300'; // Disponible
-    if (status === 'occupied') bgColor = 'bg-gray-500 cursor-not-allowed';
-    if (status === 'selected') bgColor = 'bg-blue-500';
-    
+
+    let bgColor = "bg-gray-200 hover:bg-blue-300"; // Disponible
+    if (status === "occupied") bgColor = "bg-gray-500 cursor-not-allowed";
+    if (status === "selected") bgColor = "bg-blue-500";
+
     return (
-      <div 
+      <div
         key={seatId}
         className={`w-8 h-8 m-1 rounded-t-lg flex items-center justify-center cursor-pointer transition-colors ${bgColor}`}
         onClick={() => handleSeatClick(seatId)}
-        aria-label={`Asiento ${seatId} (${status === 'available' ? 'disponible' : status === 'occupied' ? 'ocupado' : 'seleccionado'})`}
+        aria-label={`Asiento ${seatId} (${
+          status === "available"
+            ? "disponible"
+            : status === "occupied"
+            ? "ocupado"
+            : "seleccionado"
+        })`}
         role="button"
         tabIndex={0}
       >
@@ -66,7 +76,7 @@ export default function CinemaSeats() {
       </div>
     );
   };
-  
+
   // Renderizar la pantalla del cine
   const renderScreen = () => (
     <div className="mb-8 relative">
@@ -74,7 +84,7 @@ export default function CinemaSeats() {
       <div className="text-center text-sm mt-2 text-gray-600">PANTALLA</div>
     </div>
   );
-  
+
   // Renderizar la leyenda (disponible, seleccionado y ocupado)
   const renderLegend = () => (
     <div className="flex justify-center gap-4 mb-6 mt-8">
@@ -92,17 +102,22 @@ export default function CinemaSeats() {
       </div>
     </div>
   );
-  
+
   // Renderizar la información de los asientos seleccionados
   const renderSelectedInfo = () => {
     const selectedIds = Object.keys(selectedSeats);
     return (
       <div className="mt-8 p-4 bg-gray-100 rounded-lg">
-        <h3 className="font-semibold mb-2">Asientos seleccionados: {selectedIds.length}</h3>
+        <h3 className="font-semibold mb-2">
+          Asientos seleccionados: {selectedIds.length}
+        </h3>
         {selectedIds.length > 0 ? (
           <div className="flex flex-wrap gap-2">
-            {selectedIds.map(id => (
-              <div key={id} className="bg-blue-500 text-white px-2 py-1 rounded text-sm">
+            {selectedIds.map((id) => (
+              <div
+                key={id}
+                className="bg-blue-500 text-white px-2 py-1 rounded text-sm"
+              >
                 {id}
               </div>
             ))}
@@ -110,11 +125,17 @@ export default function CinemaSeats() {
         ) : (
           <p className="text-sm text-gray-600">No hay asientos seleccionados</p>
         )}
-        
+
         {selectedIds.length > 0 && (
-          <button 
+          <button
             className="mt-4 bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded flex items-center justify-center gap-2"
-            onClick={() => alert(`Comprando boletos para: ${selectedIds.join(', ')}`)}// Puedo enviar los ids de los asientos seleccionados mediante una fución en el context
+            onClick={() => {
+              handleShowsFormDataUser(true);
+              scrollTo({
+                top: 0,
+                behavior: "smooth",
+              });
+            }} // Puedo enviar los ids de los asientos seleccionados mediante una fución en el context
           >
             <FaCheck size={16} />
             <span>Confirmar selección</span>
@@ -123,13 +144,12 @@ export default function CinemaSeats() {
       </div>
     );
   };
-  
+
   return (
     <div className="max-w-3xl mx-auto p-4">
-      
       {renderLegend()}
       {renderScreen()}
-      
+
       <div className="flex justify-center mb-8">
         <div className="bg-gray-100 p-4 rounded-lg">
           {/* Generamos filas y columnas de asientos */}
@@ -160,7 +180,7 @@ export default function CinemaSeats() {
           })}
         </div>
       </div>
-      
+
       {renderSelectedInfo()}
     </div>
   );
