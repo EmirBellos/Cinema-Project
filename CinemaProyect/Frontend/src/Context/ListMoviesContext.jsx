@@ -13,10 +13,12 @@ export function ListMoviesContextProvider(props) {
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
   const [totalTickets, setTotalTickets] = useState("");
+  const [userData, setUserData] = useState(null);
   // UseStates para cambios de formularios dentro de la misma página
   const [showChangeData, setShowChangeData] = useState(false);
   const [showFormDataUser, setShowFormDataUser] = useState(false);
   const [showCancelationModal, setShowCancelationModal] = useState(false);
+  const [showButtonPay, setShowButtonPay] = useState(false);
   
   
 
@@ -92,6 +94,14 @@ export function ListMoviesContextProvider(props) {
     setTotalTickets(tickets);
     console.log("Total de Boletos seleccionados:", totalTickets);
   }, []);
+  // Funciones para manejar el ingreso de datos personales y pago
+  // Función para guardar los datos del usuario
+  const saveUserData = (data) => {
+    setUserData(data);
+    console.log("Datos del usuario guardados:", data);
+    // Aquí puedes realizar cualquier otra acción con los datos
+    // como enviarlos a una API, etc.
+  };
 
   // Funciones para manejar el cambio de formularios dentro de la misma página
   const handleChangeMovieInfoCard = (change) => {
@@ -104,6 +114,10 @@ export function ListMoviesContextProvider(props) {
 
   const handleModalCancelReserva = (show) => {
     setShowCancelationModal(show);
+  }
+
+  const handleShowButtonPay = (show) => {
+    setShowButtonPay(show);
   }
 
   useEffect(() => {
@@ -127,6 +141,20 @@ export function ListMoviesContextProvider(props) {
       tickets: totalTickets,
     });
   }, [selectedMovie, selectedCity, selectedDate, selectedTime, totalTickets]);
+
+  // Función para guardar los datos Especificos de la Reserva
+  const saveBooked = (movie, city, date, time, tickets) => {// correo, asierntos, total, nomobre, hora, fecha y peliculas. movie, showtimeid, date, name, email, total.
+    const bookedData = {
+      movie: movie.title,
+      city: city,
+      date: date.date,
+      time: time.time,
+      room: time.room,
+      tickets: tickets,
+    };
+
+    console.log(bookedData);
+  }
 
   // Función para validar que todos los datos necesarios estén seleccionados
   const areSelectionsComplete = useCallback(() => {
@@ -161,6 +189,10 @@ export function ListMoviesContextProvider(props) {
         showFormDataUser,
         handleModalCancelReserva,
         showCancelationModal,
+        saveBooked,
+        handleShowButtonPay,
+        showButtonPay,
+        saveUserData,
       }}
     >
       {props.children}

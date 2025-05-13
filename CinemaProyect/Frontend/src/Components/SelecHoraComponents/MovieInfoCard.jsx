@@ -36,7 +36,8 @@ export default function () {
     handleModalCancelReserva,
     showCancelationModal,
     showChangeData,
-    showFormDataUser,
+    showButtonPay,
+    saveBooked,
   } = useContext(ListMoviesContext);
 
   const navigate = useNavigate();
@@ -136,11 +137,12 @@ export default function () {
           </div>
           {/** Botón para acceder a la página de pago (inhabilitado) */}
           <div className="pt-4 pb-2 inset-x-0 bottom-0">
-            {showFormDataUser ? (
+            {showButtonPay ? (
               <button
               className="w-full bg-red-600 hover:bg-red-700 rounded-full py-1 text-white"
               onClick={() => {
                 //cleanSelection();
+                saveBooked(selectedMovie, selectedCity, selectedDate, selectedTime, totalTickets);
                 // Necesito validar que todos los campos del formulario hayan sido completados, utilizar funciones en el context, después añadir modal para mostrar mensaje de éxito
               }}
               >
